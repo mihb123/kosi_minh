@@ -53,4 +53,72 @@ class SkuRepo
         $products = $this->fetchAll($condition);
         return $products;
     }
+
+    function save($data)
+    {
+        global $conn;
+        $product_id = $data["product_id"];
+        $sku_id = $data["sku_id"];
+        $product_name = $data["product_name"];
+        $featured_image = $data["featured_image"];
+        $price = $data["price"];
+        $sku_price = $data["sku_price"];
+        $color_name = $data["color_name"];
+        $color_code = $data["color_code"];
+        $sale_price = $data["sale_price"];
+        $discount_percent = $data["discount_percent"];
+
+        $sql = "INSERT INTO view_sku (product_id, sku_id, product_name, featured_image, price, sku_price, color_name, color_code, sale_price, discount_percent) VALUES ($product_id, '$sku_id', '$product_name', '$featured_image', $price, $sku_price, '$color_name', '$color_code', $sale_price, $discount_percent)";
+        if ($conn->query($sql) === TRUE) {
+            return $conn->insert_id;
+        }
+        echo "Error: " . $sql . PHP_EOL . $conn->error;
+        return false;
+    }
+
+    function update($sku)
+    {
+        global $conn;
+        $sku_id = $sku->getSkuId();
+        $product_id = $sku->getProductId();
+        $product_name = $sku->getProductName();
+        $featured_image = $sku->getFeaturedImage();
+        $price = $sku->getPrice();
+        $sku_price = $sku->getSkuPrice();
+        $color_name = $sku->getColorName();
+        $color_code = $sku->getColorCode();
+        $sale_price = $sku->getSalePrice();
+        $discount_percent = $sku->getDiscountPercent();
+
+        $sql = "UPDATE view_sku SET 
+            product_id=$product_id, 
+            product_name='$product_name', 
+            featured_image='$featured_image', 
+            price=$price, 
+            sku_price=$sku_price, 
+            color_name='$color_name', 
+            color_code='$color_code', 
+            sale_price=$sale_price, 
+            discount_percent=$discount_percent 
+            WHERE sku_id='$sku_id'";
+
+        if ($conn->query($sql) === TRUE) {
+            return true;
+        }
+        echo "Error: " . $sql . PHP_EOL . $conn->error;
+        return false;
+    }
+
+    function delete($sku)
+    {
+        global $conn;
+        $sku_id = $sku->getSkuId();
+        $sql = "DELETE FROM view_sku WHERE sku_id='$sku_id'";
+
+        if ($conn->query($sql) === TRUE) {
+            return true;
+        }
+        echo "Error: " . $sql . PHP_EOL . $conn->error;
+        return false;
+    }
 }
