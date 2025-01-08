@@ -1,0 +1,34 @@
+@font-face {
+    font-family: kosi-body;
+    src: url("Kosi-bodySemiBold.woff2") format("woff2");
+    font-weight: 600;
+    font-style: normal
+}
+
+@font-face {
+    font-family: kosi-body;
+    src: url("Kosi-bodyRegular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: kosi-heading;
+    src: url("Kosi-bodySemiBold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal
+}
+
+@font-face {
+    font-family: kosi-heading;
+    src: url("Kosi-headingBold.woff2") format("woff2");
+    font-weight: 600;
+    font-style: normal
+}
+
+@font-face {
+    font-family: kosi-heading;
+    src: url("Kosi-headingRegular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal
+}

@@ -1,0 +1,98 @@
+<div class="container py-5 ">
+    <div class="row gx-5">
+        <!-- Product Image -->
+        <div class="col-md-6">
+            <div class="mb-4">
+                <img id="main-image" src="image/Product-IMG-5_360x.webp" alt="Alex lounge chair"
+                    class="img-fluid rounded" style="height: 530px;">
+            </div>
+            <!-- Thumbnail Images -->
+            <div class="d-flex gap-2">
+                <img src="image/Product-IMG-5_360x.webp" alt="Thumbnail 1" class="img-thumbnail thumbnail"
+                    style="width: 80px; height: 60px;">
+                <img src="image/Product-IMG-13_360x.webp" alt="Thumbnail 2" class="img-thumbnail thumbnail"
+                    style="width: 80px; height: 60px;">
+                <img src="image/Product-IMG-3_360x.webp" alt="Thumbnail 3" class="img-thumbnail thumbnail"
+                    style="width: 80px; height: 60px;">
+                <img src="image/Product-IMG-4_360x.webp" alt="Thumbnail 4" class="img-thumbnail thumbnail"
+                    style="width: 80px; height: 60px;">
+            </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-md-6">
+            <h1 class="h3">Alex lounge chair</h1>
+            <p class="text-warning mb-1">
+                &#9733;&#9733;&#9733;&#9733;&#9734; <span class="text-muted">(2 reviews)</span>
+            </p>
+            <p class="text-success">$180.00 <span class="text-muted">In stock</span></p>
+            <p>Most of us are familiar with the iconic design of the egg-shaped chair floating in the air. The
+                Hanging Egg Chair is a critically acclaimed design that has enjoyed praise worldwide ever since the
+                distinctive sculptural shape was created.</p>
+
+            <!-- Color Selection -->
+            <div class="color-options">
+                <p for="color" class="form-label">Color:</p>
+                <span style="background-color: #d4a373;" title="Color 1" data-bs-toggle="tooltip"
+                    data-bs-placement="top" data-bs-delay='{"show": 100, "hide": 100}'
+                    onclick="changeImage(this, 'color1.jpg')">
+                </span>
+                <span style="background-color: #6b705c;" title="Color 2" data-bs-toggle="tooltip"
+                    data-bs-placement="top" data-bs-delay='{"show": 100, "hide": 100}'
+                    onclick="changeImage(this, 'color2.jpg')"></span>
+                <span style="background-color: #cb997e;" title="Color 3" data-bs-toggle="tooltip"
+                    data-bs-placement="top" data-bs-delay='{"show": 100, "hide": 100}'
+                    onclick="changeImage(this, 'color3.jpg')"></span>
+            </div>
+
+            <!-- Quantity and Add to Cart -->
+            <div class="d-flex align-items-center mb-4">
+                <input type="number" class="form-control w-auto me-2" value="1" min="1" max="10" style="width: 80px;">
+                <button class="btn btn-dark me-2">Add To Cart</button>
+                <button class="btn btn-warning">Buy It Now</button>
+            </div>
+
+            <!-- Wishlist and Questions -->
+            <p class="mb-2">
+                <a href="#" class="text-decoration-none"><i class="bi bi-heart me-2"></i>Add to wishlist</a> |
+                <a href="#" class="text-decoration-none"><i class="bi bi-question-circle me-2"></i>Ask a
+                    question</a>
+            </p>
+
+            <!-- Product Info -->
+            <ul class="list-unstyled">
+                <li><strong>SKU:</strong> SKU103</li>
+                <li><strong>Brand:</strong> Ashley</li>
+                <li><strong>Tags:</strong> Any, Fabric, Wood</li>
+            </ul>
+
+            <!-- Shipping Info -->
+            <!-- <p>Estimated Delivery: <strong>30 - 08 January, 2025</strong></p>
+                <p class="text-success">Free Shipping & Returns: On all orders over $500.00</p> -->
+
+            <p><i class="bi bi-box-seam me-2"></i><strong>Estimated Delivery:</strong> 30 - 08 January, 2025</p>
+
+            <p><i class="bi bi-truck me-2"></i><strong>Free Shipping & Returns:</strong> On all orders over $500.00
+            </p>
+
+            <!-- Social Share -->
+            <div class="d-flex gap-2">
+                <a href="#" class="btn btn-outline-secondary btn-sm rounded-circle">
+                    <i class="bi bi-twitter" title="Twitter" data-bs-toggle="tooltip" data-bs-placement="top"
+                        data-bs-delay='{"show": 100, "hide": 100}'></i></a>
+                <a href="#" class="btn btn-outline-secondary btn-sm rounded-circle">
+                    <i class="bi bi-facebook" title="Facebook" data-bs-toggle="tooltip" data-bs-placement="top"
+                        data-bs-delay='{"show": 100, "hide": 100}'></i></a>
+                <a href="#" class="btn btn-outline-secondary btn-sm rounded-circle">
+                    <i class="bi bi-pinterest" title="Pinterest" data-bs-toggle="tooltip" data-bs-placement="top"
+                        data-bs-delay='{"show": 100, "hide": 100}'></i></a>
+                <a href="#" class="btn btn-outline-secondary btn-sm rounded-circle">
+                    <i class="bi bi-linkedin" title="Linkedin" data-bs-toggle="tooltip" data-bs-placement="top"
+                        data-bs-delay='{"show": 100, "hide": 100}'></i></a>
+                <a href="#" class="btn btn-outline-secondary btn-sm rounded-circle">
+                    <i class="bi bi-envelope" title="Mail" data-bs-toggle="tooltip" data-bs-placement="top"
+                        data-bs-delay='{"show": 100, "hide": 100}'></i></a>
+            </div>
+        </div>
+    </div>
+</div>
