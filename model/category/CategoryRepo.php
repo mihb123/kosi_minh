@@ -34,4 +34,47 @@ class CategoryRepo
         $category = current($categories);
         return $category;
     }
+
+    function save($data)
+    {
+        global $conn;
+        $name = $data["name"];
+
+        $sql = "INSERT INTO category (name) VALUES ('$name')";
+        if ($conn->query($sql) === TRUE) {
+            return $conn->insert_id;
+        }
+        echo "Error: " . $sql . PHP_EOL . $conn->error;
+        return false;
+    }
+
+    function update($category)
+    {
+        global $conn;
+        $id = $category->getId();
+        $name = $category->getName();
+
+        $sql = "UPDATE category SET 
+            name='$name' 
+            WHERE id=$id";
+
+        if ($conn->query($sql) === TRUE) {
+            return true;
+        }
+        echo "Error: " . $sql . PHP_EOL . $conn->error;
+        return false;
+    }
+
+    function delete($category)
+    {
+        global $conn;
+        $id = $category->getId();
+        $sql = "DELETE FROM category WHERE id=$id";
+
+        if ($conn->query($sql) === TRUE) {
+            return true;
+        }
+        echo "Error: " . $sql . PHP_EOL . $conn->error;
+        return false;
+    }
 }

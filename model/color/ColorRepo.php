@@ -34,4 +34,50 @@ class ColorRepo
         $color = current($colors);
         return $color;
     }
+
+    function save($data)
+    {
+        global $conn;
+        $name = $data["name"];
+        $code = $data["code"];
+
+        $sql = "INSERT INTO color (name, code) VALUES ('$name', '$code')";
+        if ($conn->query($sql) === TRUE) {
+            return $conn->insert_id;
+        }
+        echo "Error: " . $sql . PHP_EOL . $conn->error;
+        return false;
+    }
+
+    function update($color)
+    {
+        global $conn;
+        $id = $color->getId();
+        $name = $color->getName();
+        $code = $color->getCode();
+
+        $sql = "UPDATE color SET 
+            name='$name', 
+            code='$code' 
+            WHERE id=$id";
+
+        if ($conn->query($sql) === TRUE) {
+            return true;
+        }
+        echo "Error: " . $sql . PHP_EOL . $conn->error;
+        return false;
+    }
+
+    function delete($color)
+    {
+        global $conn;
+        $id = $color->getId();
+        $sql = "DELETE FROM color WHERE id=$id";
+
+        if ($conn->query($sql) === TRUE) {
+            return true;
+        }
+        echo "Error: " . $sql . PHP_EOL . $conn->error;
+        return false;
+    }
 }

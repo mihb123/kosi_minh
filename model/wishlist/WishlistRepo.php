@@ -39,4 +39,53 @@ class WishlistRepo
         $wishlist = current($wishlists);
         return $wishlist;
     }
+
+    function save($data)
+    {
+        global $conn;
+        $customer_id = $data["customer_id"];
+        $product_id = $data["product_id"];
+        $created_time = $data["created_time"];
+
+        $sql = "INSERT INTO wishlist (customer_id, product_id, created_time) VALUES ($customer_id, $product_id, '$created_time')";
+        if ($conn->query($sql) === TRUE) {
+            return $conn->insert_id;
+        }
+        echo "Error: " . $sql . PHP_EOL . $conn->error;
+        return false;
+    }
+
+    function update($wishlist)
+    {
+        global $conn;
+        $id = $wishlist->getId();
+        $customer_id = $wishlist->getCustomerId();
+        $product_id = $wishlist->getProductId();
+        $created_time = $wishlist->getCreatedTime();
+
+        $sql = "UPDATE wishlist SET 
+            customer_id=$customer_id, 
+            product_id=$product_id, 
+            created_time='$created_time' 
+            WHERE id=$id";
+
+        if ($conn->query($sql) === TRUE) {
+            return true;
+        }
+        echo "Error: " . $sql . PHP_EOL . $conn->error;
+        return false;
+    }
+
+    function delete($wishlist)
+    {
+        global $conn;
+        $id = $wishlist->getId();
+        $sql = "DELETE FROM wishlist WHERE id=$id";
+
+        if ($conn->query($sql) === TRUE) {
+            return true;
+        }
+        echo "Error: " . $sql . PHP_EOL . $conn->error;
+        return false;
+    }
 }
