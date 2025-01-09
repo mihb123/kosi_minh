@@ -5,61 +5,54 @@
 
 <div class="container-fluid products">
 
-
-
     <!-- Shop by Popular Parts Section -->
     <div class="text-center mt-5">
         <h2>Shop by Popular Parts</h2>
     </div>
-    <div class="row text-center row-cols-md-3 row-cols-lg-6 row-cols-1 header_image mt-2">
-        <?php $i = 1;
-        for ($i; $i <= 6; $i++):
-            $j = rand(1, 14); ?>
-        <div class="col d-flex flex-column align-items-center">
+    <div class="row justify-content-center">
+
+        <?php foreach ($categories as $category) {
+            $category_id = $category->getId();
+            $Products = $productRepo->getByCategory($category_id);
+            $count = count($Products);
+        ?>
+        <div class="col-lg-2 d-flex flex-column align-items-center">
+
             <div class="image__inner mb-4">
-                <img src="image/Product-IMG-<?= $j ?>_360x.webp" class="" alt="Chairs">
+                <a href="?c=product&category_id=<?= $category->getId() ?>">
+                    <img src="image/<?= $Products[0]->getFeaturedImage() ?>" class="" alt="<?= $category->getName() ?>">
+                </a>
             </div>
-            <h5>Chairs</h5>
-            <p><?= $j ?> Products</p>
+
+            <a href="?c=product&category_id=<?= $category->getId() ?>">
+                <h5><?= $category->getName() ?></h5>
+            </a>
+            <p><?= $count ?> Products</p>
+            </a>
         </div>
-        <?php endfor; ?>
+        <?php } ?>
     </div>
 
-    <div class="row justify-content-center pt-5 pb-5">
+    <div class=" row justify-content-center pt-5 pb-5">
         <!-- Sidebar -->
         <div class="col-lg-3 d-none d-lg-block sideBar" style="max-width: 350px;">
             <div class="p-3">
                 <div class="product-categories">
                     <h5>Product Categories</h5>
                     <ul>
-                        <li>
-                            <span>Chairs</span>
-                            <span class="badge bg-dark rounded-pill">10</span>
-                        </li>
-                        <li>
-                            <span>Decor</span>
-                            <span class="badge bg-dark rounded-pill">14</span>
-                        </li>
-                        <li>
-                            <span>Furnitures</span>
-                            <span class="badge bg-dark rounded-pill">14</span>
-                        </li>
-                        <li>
-                            <span>Lighting</span>
-                            <span class="badge bg-dark rounded-pill">15</span>
-                        </li>
-                        <li>
-                            <span>Sofas</span>
-                            <span class="badge bg-dark rounded-pill">15</span>
-                        </li>
-                        <li>
-                            <span>Stools</span>
-                            <span class="badge bg-dark rounded-pill">10</span>
-                        </li>
-                        <li>
-                            <span>Uncategorized</span>
-                            <span class="badge bg-dark rounded-pill">10</span>
-                        </li>
+                        <?php foreach ($categories as $category) {
+                            $category_id = $category->getId();
+                            $Products = $productRepo->getByCategory($category_id);
+                            $count = count($Products);
+                        ?>
+                        <a href="?c=product&category_id=<?= $category->getId() ?>">
+                            <li>
+                                <span><?= $category->getName() ?></span>
+                                <span class="badge bg-dark rounded-pill"><?= $count ?></span>
+                            </li>
+                        </a>
+                        <?php } ?>
+
                     </ul>
                 </div>
                 <div class="filter-section">
@@ -75,30 +68,14 @@
                     <!-- filter color -->
                     <h5>Color</h5>
                     <ul>
+                        <?php foreach ($colors as $color) { ?>
                         <li>
-                            <label for="aliceBlue">AliceBlue (1)</label>
-                            <input type="checkbox" id="aliceBlue">
+                            <label for="<?= $color->getName() ?>"><?= $color->getName() ?>
+                                (<?= $color->countColor() ?>)</label>
+                            <input type="checkbox" id="<?= $color->getName() ?>" value="<?= $color->getId() ?>"
+                                <?= $colorId == $color->getId() ? 'checked' : '' ?> class="color_filter ">
                         </li>
-                        <li>
-                            <label for="azure">Azure (1)</label>
-                            <input type="checkbox" id="azure">
-                        </li>
-                        <li>
-                            <label for="bisque">Bisque (3)</label>
-                            <input type="checkbox" id="bisque">
-                        </li>
-                        <li>
-                            <label for="black">Black (4)</label>
-                            <input type="checkbox" id="black">
-                        </li>
-                        <li>
-                            <label for="burlyWood">BurlyWood (9)</label>
-                            <input type="checkbox" id="burlyWood">
-                        </li>
-                        <li>
-                            <label for="chocolate">Chocolate (1)</label>
-                            <input type="checkbox" id="chocolate">
-                        </li>
+                        <?php } ?>
                     </ul>
 
                     <!-- filter material -->
@@ -227,12 +204,11 @@
             </div>
 
             <!-- Hiển thị sản phẩm -->
-            <div class="row">
-                <?php
-                $i = 0;
-                for ($i; $i < 14; $i++) { ?>
+            <div class="row" id="result">
+                <?php foreach ($products as $product) {
+                ?>
                 <?php require 'layout/product.php' ?>
-                <?php } ?>
+                <?php }  ?>
             </div>
         </div>
     </div>

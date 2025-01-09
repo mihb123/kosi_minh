@@ -4,13 +4,8 @@ class HomeController
     function index()
     {
         $productRepo = new ProductRepo;
-        $products = $productRepo->fetch();
+        $products = $productRepo->getAll();
 
         require 'view/viewHome.php';
-    }
-
-    function search()
-    {
-        $search = $_GET['search'];
     }
 }

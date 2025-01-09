@@ -9,17 +9,17 @@
         <?php
         $i = 0;
         for ($i; $i < 2; $i++) { ?>
-        <div class="col-md-6 ">
-            <div class="card text-dark ">
-                <a href="#">
-                    <img src="image/slide1<?= $i ?>_1296x.webp" class="card-img" alt="abc">
-                </a>
-                <div class="card-img-overlay">
-                    <h3 class="card-title" style="font-weight: 600; font-size:34px;">Lighthouse</h3>
-                    <a href="#" class="text-decoration-underline fw-medium">View all</a>
+            <div class="col-md-6 ">
+                <div class="card text-dark ">
+                    <a href="#">
+                        <img src="image/slide1<?= $i ?>_1296x.webp" class="card-img" alt="abc">
+                    </a>
+                    <div class="card-img-overlay">
+                        <h3 class="card-title" style="font-weight: 600; font-size:34px;">Lighthouse</h3>
+                        <a href="#" class="text-decoration-underline fw-medium">View all</a>
+                    </div>
                 </div>
             </div>
-        </div>
         <?php } ?>
     </div>
 </section>
@@ -34,14 +34,8 @@
 
     <div class="row gy-4 ">
         <?php foreach ($products as $product) {
-            $colors = $product->getColor();
-            if ($product->getDiscount()) {
-                $discount = $product->getDiscount()->getPercent();
-            } else {
-                $discount = 0;
-            }
         ?>
-        <?php require 'layout/product.php' ?>
+            <?php require 'layout/product.php' ?>
         <?php }  ?>
 
         <div class="text-center mb-5">
@@ -74,21 +68,21 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php $i = 1;
             for ($i; $i < 5; $i++) { ?>
-            <!-- Blog Card <?= $i ?> -->
+                <!-- Blog Card <?= $i ?> -->
 
-            <div class="col">
-                <div class="card border-0">
-                    <img src="image/blog-<?= $i ?>_540x.webp" class="card-img-top" alt="Blog Image <?= $i ?>">
-                    <div class="card-body text-center">
-                        <p class="text-muted mb-2">
-                            <i class="bi bi-person"></i> Vela Admin -
-                            <i class="bi bi-calendar"></i> April 15, 2024
-                        </p>
-                        <h6 class="card-title">Going all-in with millennial design</h6>
-                        <a href="#" class="btn btn-link text-decoration-none ">Read more</a>
+                <div class="col">
+                    <div class="card border-0">
+                        <img src="image/blog-<?= $i ?>_540x.webp" class="card-img-top" alt="Blog Image <?= $i ?>">
+                        <div class="card-body text-center">
+                            <p class="text-muted mb-2">
+                                <i class="bi bi-person"></i> Vela Admin -
+                                <i class="bi bi-calendar"></i> April 15, 2024
+                            </p>
+                            <h6 class="card-title">Going all-in with millennial design</h6>
+                            <a href="#" class="btn btn-link text-decoration-none ">Read more</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             <?php } ?>
 
         </div>

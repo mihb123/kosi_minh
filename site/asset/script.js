@@ -1,4 +1,5 @@
 // Your cart - sidebar
+
 $(document).ready(function () {
     function toggleView(sectionId) {
         $('.position-absolute').removeClass('active');
@@ -38,6 +39,12 @@ $(document).ready(function () {
             $('.subtotal').text(subtotal.toFixed(2));
         }
 
+    });
+
+    // update window.location.href - filter color
+    $('.filter-section .color_filter').on('change', function () {
+        var id = $('.filter-section .color_filter:checked').val();
+        window.location.href = `?c=product&colorId=${id}`;
     });
 })
 
