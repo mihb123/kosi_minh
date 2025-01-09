@@ -3,12 +3,12 @@
         <!-- Product Image -->
         <div class="col-md-6">
             <div class="mb-4">
-                <img id="main-image" src="image/Product-IMG-5_360x.webp" alt="Alex lounge chair"
+                <img id="main-image" src="image/<?= $product->getFeaturedImage() ?>" alt="<?= $product->getName() ?>"
                     class="img-fluid rounded" style="height: 530px;">
             </div>
             <!-- Thumbnail Images -->
             <div class="d-flex gap-2">
-                <img src="image/Product-IMG-5_360x.webp" alt="Thumbnail 1" class="img-thumbnail thumbnail"
+                <img src="image/<?= $product->getFeaturedImage() ?>" alt="Thumbnail 1" class="img-thumbnail thumbnail"
                     style="width: 80px; height: 60px;">
                 <img src="image/Product-IMG-13_360x.webp" alt="Thumbnail 2" class="img-thumbnail thumbnail"
                     style="width: 80px; height: 60px;">
@@ -16,33 +16,41 @@
                     style="width: 80px; height: 60px;">
                 <img src="image/Product-IMG-4_360x.webp" alt="Thumbnail 4" class="img-thumbnail thumbnail"
                     style="width: 80px; height: 60px;">
+                <!-- chua co data -->
             </div>
         </div>
 
         <!-- Product Details -->
         <div class="col-md-6">
-            <h1 class="h3">Alex lounge chair</h1>
+            <h1 class="h3"><?= $product->getName() ?></h1>
             <p class="text-warning mb-1">
                 &#9733;&#9733;&#9733;&#9733;&#9734; <span class="text-muted">(2 reviews)</span>
+                <!-- lam sau, chua co data -->
             </p>
-            <p class="text-success">$180.00 <span class="text-muted">In stock</span></p>
-            <p>Most of us are familiar with the iconic design of the egg-shaped chair floating in the air. The
-                Hanging Egg Chair is a critically acclaimed design that has enjoyed praise worldwide ever since the
-                distinctive sculptural shape was created.</p>
+            <p class="text-success">$<?= $product->getPrice() ?>
+                <?php if ($product->getQty()) { ?>
+                <span class="text-muted">In stock</span>
+                <?php } else { ?>
+                <span class="text-muted">Out of stock</span>
+                <?php } ?>
+            </p>
+            <p>
+                <?= $product->getDescription() ?>
+            </p>
 
             <!-- Color Selection -->
             <div class="color-options">
+
                 <p for="color" class="form-label">Color:</p>
-                <span style="background-color: #d4a373;" title="Color 1" data-bs-toggle="tooltip"
-                    data-bs-placement="top" data-bs-delay='{"show": 100, "hide": 100}'
-                    onclick="changeImage(this, 'color1.jpg')">
+
+                <?php $colors = $product->getColor();
+                foreach ($colors as $color) { ?>
+                <span style="background-color:<?= $color->getColorCode() ?>;" title="<?= $color->getColorName() ?>"
+                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-delay='{"show": 100, "hide": 100}'
+                    onclick="changeImage(this, '<?= $color->getColorName() ?>')">
                 </span>
-                <span style="background-color: #6b705c;" title="Color 2" data-bs-toggle="tooltip"
-                    data-bs-placement="top" data-bs-delay='{"show": 100, "hide": 100}'
-                    onclick="changeImage(this, 'color2.jpg')"></span>
-                <span style="background-color: #cb997e;" title="Color 3" data-bs-toggle="tooltip"
-                    data-bs-placement="top" data-bs-delay='{"show": 100, "hide": 100}'
-                    onclick="changeImage(this, 'color3.jpg')"></span>
+                <?php } ?>
+
             </div>
 
             <!-- Quantity and Add to Cart -->

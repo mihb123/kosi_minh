@@ -1,8 +1,13 @@
 <div class="col-md-6 col-lg-4 col-xl-3 kosiProduct gy-4">
-
+    <?php $colors = $product->getColor();
+    if ($product->getDiscount()) {
+        $discount = $product->getDiscount()->getPercent();
+    } else {
+        $discount = 0;
+    } ?>
     <!-- xử lý ảnh -->
     <div class="image__inner d-flex position-relative mb-2">
-        <a href="#" class="w-100">
+        <a href="?c=product&a=detail&id=<?= $product->getId() ?>" class="w-100">
             <img src="image/<?= $product->getFeaturedImage() ?>" alt="">
         </a>
         <?php if ($discount) { ?>
@@ -25,7 +30,7 @@
     </div>
 
     <!-- tên sp -->
-    <a href="#" class="productName "> <?= $product->getName() ?></a>
+    <a href="?c=product&a=detail&id=<?= $product->getId() ?>" class="productName "> <?= $product->getName() ?></a>
 
     <!-- color -->
     <div class="color-options">

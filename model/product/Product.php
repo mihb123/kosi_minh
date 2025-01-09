@@ -120,7 +120,6 @@ class Product
     function getColor()
     {
         $skuRepo = new SkuRepo();
-        $colorCodes = [];
         $colors = $skuRepo->findProductId($this->getId());
         return $colors;
     }
