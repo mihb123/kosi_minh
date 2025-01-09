@@ -40,7 +40,7 @@
         <nav class="navbar navbar-expand-md bg-body-tertiary fixed-nav">
             <div class="container-lg d-flex align-items-center">
                 <!-- Logo -->
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="?c=home">
                     <img src="image/logo.svg" alt="Logo" width="100">
                 </a>
 
@@ -55,12 +55,12 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav align-items-start">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
+                            <a class="nav-link active" aria-current="page" href="?c=home">
                                 <i class="bi bi-house-door me-1"></i> Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="?c=product">
                                 <i class="bi bi-box me-1"></i> Product
                             </a>
                         </li>

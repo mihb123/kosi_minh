@@ -38,4 +38,32 @@ class Color
         $this->code = $code;
         return $this;
     }
+
+    function countColor()
+    {
+        $skuRepo = new SkuRepo;
+        $name = $this->getName();
+        $array_conds = [
+            'color_name' => [
+                'type' => "=",
+                'val' => "$name"
+            ]
+        ];
+        $colors = $skuRepo->getBy($array_conds);
+        return count($colors);
+    }
+
+    function getProductByColor()
+    {
+        $skuRepo = new SkuRepo;
+        $name = $this->getName();
+        $array_conds = [
+            'color_name' => [
+                'type' => "=",
+                'val' => "$name"
+            ]
+        ];
+        $products = $skuRepo->getBy($array_conds);
+        return $products;
+    }
 }

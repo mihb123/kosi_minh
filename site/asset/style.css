@@ -343,6 +343,7 @@ footer {
 }
 
 /* sidebar */
+
 .product-categories h5 {
   font-weight: bold;
   margin-bottom: 15px;
@@ -379,6 +380,11 @@ footer {
 
 .filter-section ul li label {
   margin: 0;
+  cursor: pointer !important;
+}
+
+.filter-section ul li input{
+  cursor: pointer;
 }
 
 /* price filter in sidebar */

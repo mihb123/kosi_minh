@@ -121,4 +121,40 @@ class SkuRepo
         echo "Error: " . $sql . PHP_EOL . $conn->error;
         return false;
     }
+
+    function getBy($array_conds = array())
+    {
+        $temp = array();
+        foreach ($array_conds as $column => $cond) {
+            // VD: $array_conds = [
+            // name => [
+            //     'type' = 'LIKE';
+            //     'val' = 'abc'
+            // ]
+            // create_date => [
+            //     'type' => 'BETWEEN',
+            //     'val' => ['2020-01-01', '2020-10-01]
+            // ]
+
+            $type = $cond['type'];
+            $val = $cond['val'];
+            $str = "$column $type ";
+            if (in_array($type, array("BETWEEN", "LIKE"))) {
+                $str .= "$val"; //name LIKE '%abc%'
+            } else {
+                $str .= "'$val'";
+            }
+            $temp[] = $str;
+        }
+        $condition = null;
+
+        if (count($array_conds)) {
+            //name LIKE '%abc%' 
+            //create_date='2020-08-07'
+            // => name LIKE '%abc%'  AND create_date='2020-08-07'
+            $condition = implode(" AND ", $temp);
+        }
+        $skus = $this->fetchAll($condition);
+        return $skus;
+    }
 }

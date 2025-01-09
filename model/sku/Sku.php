@@ -133,4 +133,20 @@ class Sku
         $this->discount_percent = $discount_percent;
         return $this;
     }
+
+    function convertToArray()
+    {
+        $a = array();
+        $a["sku_id"] = $this->sku_id;
+        $a["product_id"] = $this->product_id;
+        $a["product_name"] = $this->product_name;
+        $a["featured_image"] = $this->featured_image;
+        $a["price"] = $this->price;
+        $a["sku_price"] = $this->sku_price;
+        $a["color_name"] = $this->color_name;
+        $a["color_code"] = $this->color_code;
+        $a["sale_price"] = $this->sale_price;
+        $a["discount_percent"] = $this->discount_percent;
+        return $a;
+    }
 }
