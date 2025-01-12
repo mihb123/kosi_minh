@@ -1,5 +1,5 @@
 <div class="col-md-6 col-lg-4 col-xl-3 kosiProduct gy-4">
-    <?php $colors = $product->getColor();
+    <?php $colors = $product->getColors();
     if ($product->getDiscount()) {
         $discount = $product->getDiscount()->getPercent();
     } else {
@@ -11,48 +11,57 @@
             <img src="image/<?= $product->getFeaturedImage() ?>" alt="">
         </a>
         <?php if ($discount) { ?>
-            <div class="d-flex position-absolute align-items-center discount">
-                <span>-<?= $discount ?>%</span>
-            </div>
+        <div class="d-flex position-absolute align-items-center discount">
+            <span>-<?= $discount ?>%</span>
+        </div>
         <?php } else { ?>
-            <div d-none></div>
+        <div d-none></div>
         <?php } ?>
 
         <!-- icons -->
         <div class="icons">
-            <i class="bi bi-cart" title="Add to cart" data-bs-toggle="tooltip" data-bs-placement="top"
-                data-bs-delay='{"show": 100, "hide": 100}'></i>
-            <i class="bi bi-heart" title="Add to wishlist" data-bs-toggle="tooltip" data-bs-placement="top"
-                data-bs-delay='{"show": 100, "hide": 100}'></i>
-            <i class="bi bi-eye" title="Quick view" data-bs-toggle="tooltip" data-bs-placement="top"
-                data-bs-delay='{"show": 100, "hide": 100}'></i>
+            <a href="">
+                <i class="bi bi-cart" title="Add to cart" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-delay='{"show": 100, "hide": 100}'></i>
+            </a>
+
+            <a href="?c=wishlist">
+                <i class="bi bi-heart" title="Add to wishlist" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-delay='{"show": 100, "hide": 100}'></i>
+            </a>
+            <a href="">
+                <i class="bi bi-eye" title="Quick view" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-delay='{"show": 100, "hide": 100}'></i>
+            </a>
+
         </div>
     </div>
 
     <!-- tên sp -->
-    <a href="?c=product&a=detail&id=<?= $product->getId() ?>" class="productName "> <?= $product->getName() ?></a>
+    <a href="?c=product&a=detail&id=<?= $product->getId() ?>" class="productName line-title">
+        <?= $product->getName() ?></a>
 
     <!-- color -->
     <div class="color-options">
         <?php foreach ($colors as $color) {
-            $colorCode = $color->getColorCode();
-            $colorName = $color->getColorName();
+            $colorName = $color->getName();
+            $colorCode = $color->getCode();
         ?>
-            <span style="background-color: <?= $colorCode ?>;" title="<?= $colorName ?>" data-bs-toggle="tooltip"
-                data-bs-placement="top" data-bs-delay='{"show": 100, "hide": 100}'
-                onclick="changeImage(this, '<?= $colorName ?>')">
-            </span>
+        <span style="background-color: <?= $colorCode ?>;" title="<?= $colorName ?>" data-bs-toggle="tooltip"
+            data-bs-placement="top" data-bs-delay='{"show": 100, "hide": 100}'
+            onclick="changeImage(this, '<?= $colorName ?>')">
+        </span>
         <?php } ?>
     </div>
 
     <!-- price -->
     <div class="price">
         <?php if ($discount) { ?>
-            <p class="d-inline original-price text-decoration-line-through">$<?= number_format($product->getPrice()) ?></p>
-            <p class="d-inline sale-price fw-medium">$<?= number_format($product->getPrice() * (1 - $discount / 100)) ?></p>
+        <p class="d-inline original-price text-decoration-line-through">$<?= number_format($product->getPrice()) ?></p>
+        <p class="d-inline sale-price fw-medium">$<?= number_format($product->getPrice() * (1 - $discount / 100)) ?></p>
 
         <?php } else { ?>
-            <span class="fw-medium original-price">$<?= number_format($product->getPrice()) ?></span>
+        <span class="fw-medium original-price">$<?= number_format($product->getPrice()) ?></span>
         <?php } ?>
     </div>
 

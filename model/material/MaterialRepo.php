@@ -1,11 +1,11 @@
 <?php
-class ImageRepo
+class MaterialRepo
 {
     protected function fetchAll($condition = null)
     {
         global $conn;
-        $images = array();
-        $sql = "SELECT * FROM image";
+        $materials = array();
+        $sql = "SELECT * FROM material";
         if ($condition) {
             $sql .= " WHERE $condition";
         }
@@ -14,12 +14,11 @@ class ImageRepo
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $image = new Image($row["id"], $row["product_id"], $row["url"]);
-                $images[] = $image;
+                $material = new Material($row["id"], $row["name"], $row["description"]);
+                $materials[] = $material;
             }
         }
-
-        return $images;
+        return $materials;
     }
 
     function getAll()
@@ -31,18 +30,18 @@ class ImageRepo
     {
         global $conn;
         $condition = "id = $id";
-        $images = $this->fetchAll($condition);
-        $image = current($images);
-        return $image;
+        $materials = $this->fetchAll($condition);
+        $material = current($materials);
+        return $material;
     }
 
     function save($data)
     {
         global $conn;
-        $product_id = $data["product_id"];
-        $url = $data["url"];
+        $name = $data["name"];
+        $description = $data["description"];
 
-        $sql = "INSERT INTO image (product_id, url) VALUES ($product_id, '$url')";
+        $sql = "INSERT INTO material (name, description) VALUES ('$name', '$description')";
         if ($conn->query($sql) === TRUE) {
             return $conn->insert_id;
         }
@@ -50,16 +49,16 @@ class ImageRepo
         return false;
     }
 
-    function update($image)
+    function update($material)
     {
         global $conn;
-        $id = $image->getId();
-        $product_id = $image->getproduct_id();
-        $url = $image->getUrl();
+        $id = $material->getId();
+        $name = $material->getName();
+        $description = $material->getDescription();
 
-        $sql = "UPDATE image SET 
-            product_id=$product_id, 
-            url='$url' 
+        $sql = "UPDATE material SET 
+            name='$name', 
+            description='$description' 
             WHERE id=$id";
 
         if ($conn->query($sql) === TRUE) {
@@ -69,11 +68,11 @@ class ImageRepo
         return false;
     }
 
-    function delete($image)
+    function delete($material)
     {
         global $conn;
-        $id = $image->getId();
-        $sql = "DELETE FROM image WHERE id=$id";
+        $id = $material->getId();
+        $sql = "DELETE FROM material WHERE id=$id";
 
         if ($conn->query($sql) === TRUE) {
             return true;

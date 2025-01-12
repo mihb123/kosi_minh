@@ -43,11 +43,11 @@
 
                 <p for="color" class="form-label">Color:</p>
 
-                <?php $colors = $product->getColor();
+                <?php $colors = $product->getColors();
                 foreach ($colors as $color) { ?>
-                <span style="background-color:<?= $color->getColorCode() ?>;" title="<?= $color->getColorName() ?>"
+                <span style="background-color:<?= $color->getCode() ?>;" title="<?= $color->getName() ?>"
                     data-bs-toggle="tooltip" data-bs-placement="top" data-bs-delay='{"show": 100, "hide": 100}'
-                    onclick="changeImage(this, '<?= $color->getColorName() ?>')">
+                    onclick="changeImage(this, '<?= $color->getName() ?>')">
                 </span>
                 <?php } ?>
 

@@ -5,7 +5,7 @@ class SkuRepo
     {
         global $conn;
         $skus = array();
-        $sql = "SELECT * FROM view_sku"; // Assuming the table name is 'sku'
+        $sql = "SELECT * FROM sku";
         if ($condition) {
             $sql .= " WHERE $condition";
         }
@@ -14,18 +14,7 @@ class SkuRepo
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $sku = new Sku(
-                    $row["sku_id"], // Assuming the field name is 'sku_id'
-                    $row["product_id"], // Assuming the field name is 'product_id'
-                    $row["product_name"], // Assuming the field name is 'product_name'
-                    $row["featured_image"], // Assuming the field name is 'featured_image'
-                    $row["price"], // Assuming the field name is 'price'
-                    $row["sku_price"], // Assuming the field name is 'sku_price'
-                    $row["color_name"], // Assuming the field name is 'color_name'
-                    $row["color_code"], // Assuming the field name is 'color_code'
-                    $row["sale_price"], // Assuming the field name is 'sale_price'
-                    $row["discount_percent"] // Assuming the field name is 'discount_percent'
-                );
+                $sku = new Sku($row["id"], $row["product_id"], $row["color_id"], $row["material_id"], $row["price"]);
                 $skus[] = $sku;
             }
         }
@@ -54,21 +43,24 @@ class SkuRepo
         return $products;
     }
 
+    function find($id)
+    {
+        global $conn;
+        $condition = "id = $id";
+        $skus = $this->fetchAll($condition);
+        $sku = current($skus);
+        return $sku;
+    }
+
     function save($data)
     {
         global $conn;
         $product_id = $data["product_id"];
-        $sku_id = $data["sku_id"];
-        $product_name = $data["product_name"];
-        $featured_image = $data["featured_image"];
+        $color_id = $data["color_id"];
+        $material_id = $data["material_id"];
         $price = $data["price"];
-        $sku_price = $data["sku_price"];
-        $color_name = $data["color_name"];
-        $color_code = $data["color_code"];
-        $sale_price = $data["sale_price"];
-        $discount_percent = $data["discount_percent"];
 
-        $sql = "INSERT INTO view_sku (product_id, sku_id, product_name, featured_image, price, sku_price, color_name, color_code, sale_price, discount_percent) VALUES ($product_id, '$sku_id', '$product_name', '$featured_image', $price, $sku_price, '$color_name', '$color_code', $sale_price, $discount_percent)";
+        $sql = "INSERT INTO sku (product_id, color_id, material_id, price) VALUES ('$product_id', '$color_id', '$material_id', '$price')";
         if ($conn->query($sql) === TRUE) {
             return $conn->insert_id;
         }
@@ -79,28 +71,18 @@ class SkuRepo
     function update($sku)
     {
         global $conn;
-        $sku_id = $sku->getSkuId();
+        $id = $sku->getId();
         $product_id = $sku->getProductId();
-        $product_name = $sku->getProductName();
-        $featured_image = $sku->getFeaturedImage();
+        $color_id = $sku->getColorId();
+        $material_id = $sku->getMaterialId();
         $price = $sku->getPrice();
-        $sku_price = $sku->getSkuPrice();
-        $color_name = $sku->getColorName();
-        $color_code = $sku->getColorCode();
-        $sale_price = $sku->getSalePrice();
-        $discount_percent = $sku->getDiscountPercent();
 
-        $sql = "UPDATE view_sku SET 
-            product_id=$product_id, 
-            product_name='$product_name', 
-            featured_image='$featured_image', 
-            price=$price, 
-            sku_price=$sku_price, 
-            color_name='$color_name', 
-            color_code='$color_code', 
-            sale_price=$sale_price, 
-            discount_percent=$discount_percent 
-            WHERE sku_id='$sku_id'";
+        $sql = "UPDATE sku SET 
+            product_id='$product_id', 
+            color_id='$color_id', 
+            material_id='$material_id', 
+            price='$price' 
+            WHERE id=$id";
 
         if ($conn->query($sql) === TRUE) {
             return true;
@@ -112,8 +94,8 @@ class SkuRepo
     function delete($sku)
     {
         global $conn;
-        $sku_id = $sku->getSkuId();
-        $sql = "DELETE FROM view_sku WHERE sku_id='$sku_id'";
+        $id = $sku->getId();
+        $sql = "DELETE FROM sku WHERE id=$id";
 
         if ($conn->query($sql) === TRUE) {
             return true;
@@ -122,39 +104,76 @@ class SkuRepo
         return false;
     }
 
-    function getBy($array_conds = array())
+    function getBy($array_cond = array())
     {
         $temp = array();
-        foreach ($array_conds as $column => $cond) {
-            // VD: $array_conds = [
-            // name => [
-            //     'type' = 'LIKE';
-            //     'val' = 'abc'
-            // ]
-            // create_date => [
-            //     'type' => 'BETWEEN',
-            //     'val' => ['2020-01-01', '2020-10-01]
-            // ]
-
-            $type = $cond['type'];
-            $val = $cond['val'];
-            $str = "$column $type ";
-            if (in_array($type, array("BETWEEN", "LIKE"))) {
-                $str .= "$val"; //name LIKE '%abc%'
-            } else {
-                $str .= "'$val'";
-            }
-            $temp[] = $str;
-        }
         $condition = null;
+        if ($array_cond) {
+            foreach ($array_cond as $column => $cond) {
+                $type = $cond['type'];
+                $val = $cond['val'];
+                $str = "$column $type ";
+                if (in_array($type, array("BETWEEN", "LIKE"))) {
+                    $str .= "$val"; //name LIKE '%abc%'
+                } else {
+                    $str .= "'$val'";
+                }
+                $temp[] = $str;
+            }
 
-        if (count($array_conds)) {
-            //name LIKE '%abc%' 
-            //create_date='2020-08-07'
-            // => name LIKE '%abc%'  AND create_date='2020-08-07'
-            $condition = implode(" AND ", $temp);
+
+            if (count($array_cond)) {
+                $condition = implode(" AND ", $temp);
+            }
         }
         $skus = $this->fetchAll($condition);
         return $skus;
+    }
+
+    function removeDup($products)
+    {
+        $uniqueProducts = array();
+        $productIds = [];
+        foreach ($products as $product) {
+            $productId = $product->getProductId();
+            if (!in_array($productId, $productIds)) {
+                $productIds[] = $productId;
+                $uniqueProducts[] = $product;
+            }
+        }
+        return $uniqueProducts;
+    }
+
+    function getByConds($array_conds = array())
+    {
+        if (count($array_conds) > 1) {
+            $conditions = [];
+            foreach ($array_conds as $array_cond) {
+                foreach ($array_cond as $column => $cond) {
+                    $temp = array();
+                    $type = $cond['type'];
+                    $val = $cond['val'];
+                    $str = "$column $type ";
+                    if (in_array($type, array("BETWEEN", "LIKE"))) {
+                        $str .= "$val"; //name LIKE '%abc%'
+                    } else {
+                        $str .= "'$val'";
+                    }
+                    $temp[] = $str;
+                }
+                $condition = null;
+
+                if (count($array_conds)) {
+                    $condition = implode(" AND ", $temp);
+                }
+                $conditions[] = $condition;
+            }
+            $sql = implode(" AND ", $conditions);
+            $skus = $this->fetchAll($sql);
+            return $skus;
+        } else {
+            $skus = $this->getBy(current($array_conds));
+            return $skus;
+        }
     }
 }

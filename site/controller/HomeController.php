@@ -6,6 +6,9 @@ class HomeController
         $productRepo = new ProductRepo;
         $products = $productRepo->getAll();
 
+        $categoryRepo = new CategoryRepo;
+        $categories = $categoryRepo->getAll();
+
         require 'view/viewHome.php';
     }
 }

@@ -15,17 +15,72 @@ class ProductController
             ];
         }
 
+        $search = $_POST['search'] ?? '';
+        if ($search) {
+            $cond = [
+                'name' => [
+                    'type' => 'like',
+                    'val' => "%$search%"
+                ]
+            ];
+        }
 
         $productRepo = new ProductRepo();
         $products = $productRepo->getBy($cond);
+
+        // filter nhiều điều kiện
+        $cond = [];
+        $minPrice = $_GET['minPrice'] ?? '';
+        $maxPrice = $_GET['maxPrice'] ?? '';
+        if ($maxPrice) {
+            $cond[] = [
+                'sale_price' => [
+                    'type' => 'BETWEEN',
+                    'val' => "$minPrice AND $maxPrice"
+                ]
+            ];
+        }
+
+        $colorId = $_GET['colorId'] ?? '';
+        if ($colorId) {
+            $cond[] = [
+                'color_id' => [
+                    'type' => '=',
+                    'val' => $colorId
+                ]
+            ];
+        }
+
+        $materialId = $_GET['materialId'] ?? '';
+        if ($materialId) {
+            $cond[] = [
+                'material_id' => [
+                    'type' => '=',
+                    'val' => $materialId
+                ]
+            ];
+        }
 
         $categoryRepo = new CategoryRepo();
         $categories = $categoryRepo->getAll();
 
         $colorRepo = new ColorRepo();
         $colors = $colorRepo->getAll();
-        $colorId = $_GET['colorId'] ?? '';
-        echo $colorId;
+
+        $materialRepo = new MaterialRepo();
+        $materials = $materialRepo->getAll();
+
+        if ($cond) {
+            $skuRepo = new viewSkuRepo();
+            $Skus = $skuRepo->getByConds($cond);
+            $skus = $skuRepo->removeDup($Skus);
+            $products = [];
+            foreach ($skus as $sku) {
+                $productId = $sku->getProductId();
+                $products[] = $productRepo->find($productId);
+            }
+        }
+
         require 'view/viewProduct.php';
     }
 
@@ -51,14 +106,6 @@ class ProductController
 
         require 'view/viewProductDetail.php';
     }
-
-    // function filter()
-    // {
-    //     $id = $_POST['selectedColor'];
-
-    //     $colorRepo = new ColorRepo();
-    //     $Color = $colorRepo->find($id);
-    //     $products = $Color->getProductByColor();
-    //     require 'view/viewProduct.php';
-    // }
+    // $test = $search;
+    //     require 'view/viewTest.php';    
 }

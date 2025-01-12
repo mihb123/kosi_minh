@@ -1,6 +1,5 @@
 <?php require 'layout/header.php' ?>
 <!-- Banner Section -->
-<?php $sectionName = 'Products'; ?>
 <?php require 'layout/banner.php' ?>
 
 <div class="container-fluid products">
@@ -61,8 +60,9 @@
                     <h5>Price Filter</h5>
                     <div id="price-slider" class="slider-container"></div>
                     <div class="price-labels">
-                        <span class="price-label" id="minPriceLabel">$0</span>
-                        <span class="price-label" id="maxPriceLabel">$300</span>
+
+                        <span class="price-label" id="minPriceLabel">$<?= $minPrice ?? 0 ?></span>
+                        <span class="price-label" id="maxPriceLabel">$<?= $maxPrice ?? 500 ?></span>
                     </div>
 
                     <!-- filter color -->
@@ -72,6 +72,7 @@
                         <li>
                             <label for="<?= $color->getName() ?>"><?= $color->getName() ?>
                                 (<?= $color->countColor() ?>)</label>
+
                             <input type="checkbox" id="<?= $color->getName() ?>" value="<?= $color->getId() ?>"
                                 <?= $colorId == $color->getId() ? 'checked' : '' ?> class="color_filter ">
                         </li>
@@ -81,52 +82,18 @@
                     <!-- filter material -->
                     <h5>Material</h5>
                     <ul>
+                        <?php foreach ($materials as $material) { ?>
                         <li>
-                            <label for="materialAny">Any (1)</label>
-                            <input type="checkbox" id="materialAny">
+                            <label for="<?= $material->getId() ?>"><?= $material->getName() ?>
+                                (<?= $material->count() ?>)</label>
+                            <input type="checkbox" id="<?= $material->getId() ?>" class="material_filter "
+                                value="<?= $material->getId() ?>"
+                                <?= $materialId == $material->getId() ? 'checked' : '' ?>>
                         </li>
-                        <li>
-                            <label for="ceramic">Ceramic (1)</label>
-                            <input type="checkbox" id="ceramic">
-                        </li>
-                        <li>
-                            <label for="fabric">Fabric (1)</label>
-                            <input type="checkbox" id="fabric">
-                        </li>
-                        <li>
-                            <label for="metal">Metal (1)</label>
-                            <input type="checkbox" id="metal">
-                        </li>
-                        <li>
-                            <label for="wood">Wood (1)</label>
-                            <input type="checkbox" id="wood">
-                        </li>
+                        <?php } ?>
+
                     </ul>
 
-                    <!-- filter tags -->
-                    <h5>Tags</h5>
-                    <ul>
-                        <li>
-                            <label for="tagAny">Any (5)</label>
-                            <input type="checkbox" id="tagAny">
-                        </li>
-                        <li>
-                            <label for="tagCeramic">Ceramic (1)</label>
-                            <input type="checkbox" id="tagCeramic">
-                        </li>
-                        <li>
-                            <label for="tagFabric">Fabric (1)</label>
-                            <input type="checkbox" id="tagFabric">
-                        </li>
-                        <li>
-                            <label for="tagMetal">Metal (3)</label>
-                            <input type="checkbox" id="tagMetal">
-                        </li>
-                        <li>
-                            <label for="tagWood">Wood (4)</label>
-                            <input type="checkbox" id="tagWood">
-                        </li>
-                    </ul>
                 </div>
 
                 <!-- best seller -->
@@ -179,7 +146,7 @@
             <!-- Thanh tìm kiếm & kết quả -->
             <div class="d-flex justify-content-between align-items-center bg-light p-3 rounded mb-4">
                 <!-- Thanh tìm kiếm -->
-                <form action="" method="get" class="d-flex flex-grow-1 me-3">
+                <form action="?c=product" method="post" class="d-flex flex-grow-1 me-3">
                     <input id="search-bar" type="search" name="search" class="form-control me-2 search-input"
                         placeholder="Search for products">
                     <button type="submit" class="btn btn-outline-secondary search_icon">
@@ -199,8 +166,9 @@
             </div>
 
             <!-- Hiển thị kết quả -->
-            <div id="result-info" class="text-muted mb-4" style="display: none;">
-                Showing 1–15 of 15 Results
+            <?php $count = count($products) ?>
+            <div id="result-info" class="text-muted mb-4 d-none <?= $count == 0 ? '' : 'd-md-block' ?>">
+                Showing 1<?= $count == 1 ? '' : "-$count" ?> of <?= $count ?> Results
             </div>
 
             <!-- Hiển thị sản phẩm -->

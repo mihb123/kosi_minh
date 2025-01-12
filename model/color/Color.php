@@ -42,28 +42,30 @@ class Color
     function countColor()
     {
         $skuRepo = new SkuRepo;
-        $name = $this->getName();
+        $id = $this->getId();
         $array_conds = [
-            'color_name' => [
+            'color_id' => [
                 'type' => "=",
-                'val' => "$name"
+                'val' => "$id"
             ]
         ];
         $colors = $skuRepo->getBy($array_conds);
-        return count($colors);
+        $uniqueColor = $skuRepo->removeDup($colors);
+        return count($uniqueColor);
     }
 
     function getProductByColor()
     {
         $skuRepo = new SkuRepo;
-        $name = $this->getName();
+        $id = $this->getId();
         $array_conds = [
             'color_name' => [
                 'type' => "=",
-                'val' => "$name"
+                'val' => "$id"
             ]
         ];
         $products = $skuRepo->getBy($array_conds);
-        return $products;
+        $uniqueProducts = $skuRepo->removeDup($products);
+        return $uniqueProducts;
     }
 }

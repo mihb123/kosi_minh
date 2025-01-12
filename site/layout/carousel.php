@@ -55,7 +55,8 @@
                     <h2 class="d-inline-block fw-bold">Chair</h2> <br>
                     <h2 class="d-inline-block fw-bold last-h2">by Wood</h2> <br>
 
-                    <a href="/shop" class="text-decoration-underline" style="font-size: 18px; font-weight:500;">Shop
+                    <a href="?c=product" class="text-decoration-underline"
+                        style="font-size: 18px; font-weight:500;">Shop
                         Now</a>
                 </div>
             </div>

@@ -24,7 +24,7 @@ class OrderRepo
                     $row["shipping_address"], // Corrected property name
                     $row["status_id"], // Corrected property name
                     $row["shipping_cost"], // Corrected property name
-                    $row["received_date"] // Corrected property name
+                    $row["delivery_date"] // Corrected property name
                 );
                 $orders[] = $order;
             }
@@ -57,9 +57,9 @@ class OrderRepo
         $shipping_address = $data["shipping_address"];
         $status_id = $data["status_id"];
         $shipping_cost = $data["shipping_cost"];
-        $received_date = $data["received_date"];
+        $delivery_date = $data["delivery_date"];
 
-        $sql = "INSERT INTO `order` (customer_id, created_date, recipient, phone_no, ward_id, shipping_address, status_id, shipping_cost, received_date) VALUES ($customer_id, '$created_date', '$recipient', '$phone_no', $ward_id, '$shipping_address', $status_id, $shipping_cost, '$received_date')";
+        $sql = "INSERT INTO `order` (customer_id, created_date, recipient, phone_no, ward_id, shipping_address, status_id, shipping_cost, delivery_date) VALUES ($customer_id, '$created_date', '$recipient', '$phone_no', $ward_id, '$shipping_address', $status_id, $shipping_cost, '$delivery_date')";
         if ($conn->query($sql) === TRUE) {
             return $conn->insert_id;
         }
@@ -79,7 +79,7 @@ class OrderRepo
         $shipping_address = $order->getShippingAddress();
         $status_id = $order->getStatusId();
         $shipping_cost = $order->getShippingCost();
-        $received_date = $order->getReceivedDate();
+        $delivery_date = $order->getReceivedDate();
 
         $sql = "UPDATE `order` SET 
             customer_id=$customer_id, 
@@ -90,7 +90,7 @@ class OrderRepo
             shipping_address='$shipping_address', 
             status_id=$status_id, 
             shipping_cost=$shipping_cost, 
-            received_date='$received_date' 
+            delivery_date='$delivery_date' 
             WHERE id=$id";
 
         if ($conn->query($sql) === TRUE) {

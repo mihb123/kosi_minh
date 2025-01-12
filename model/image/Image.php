@@ -2,13 +2,13 @@
 class Image
 {
     protected $id;
-    protected $productId;
+    protected $product_id;
     protected $url;
 
-    public function __construct($id, $productId, $url)
+    public function __construct($id, $product_id, $url)
     {
         $this->id = $id;
-        $this->productId = $productId;
+        $this->product_id = $product_id;
         $this->url = $url;
     }
 
@@ -20,7 +20,7 @@ class Image
 
     public function getProductId()
     {
-        return $this->productId;
+        return $this->product_id;
     }
 
     public function getUrl()
@@ -29,9 +29,9 @@ class Image
     }
 
     // Setters
-    public function setProductId($productId)
+    public function setProductId($product_id)
     {
-        $this->productId = $productId;
+        $this->product_id = $product_id;
         return $this;
     }
 

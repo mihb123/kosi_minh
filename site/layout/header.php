@@ -101,7 +101,7 @@
 
 
                         <!-- wishlist -->
-                        <a href="" class="position-relative">
+                        <a href="?c=wishlist" class="position-relative">
                             <i class="icon kosi-icon-heart fs-23"></i>
                             <span class="count">1</span>
                         </a>
@@ -120,8 +120,6 @@
         <?php require 'layout/cart.php' ?>
 
         <!-- search -->
-
-
         <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel"
             style="height:15vh !important;">
             <div class="offcanvas-header">
@@ -130,14 +128,14 @@
                     aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-                <form action="/search" method="post" class="justify-content-center d-flex">
-                    <input type="text" placeholder="Search name product" class="form-control me-3 search-input d-flex"
-                        style="width:500px !important;">
-                    <a href="/search" class="align-items-center d-flex">
+                <form action="?c=product" method="post" class="justify-content-center d-flex">
+                    <input name="search" type="text" placeholder="Search name product"
+                        class="form-control search-input me-2 d-flex" style="width:500px !important;">
+                    <button class="align-items-center d-flex" type="submit"
+                        style="border: none; background-color: unset;">
                         <i class="icon kosi-icon- kosi-icon-search fs-20"></i>
-                    </a>
+                    </button>
                 </form>
-
             </div>
         </div>
 
@@ -151,11 +149,12 @@
                 <form>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email">
+                        <input type="email" class="form-control" id="email" autocomplete="username" placeholder="Email">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password">
+                        <input type="password" class="form-control" id="password" placeholder="Password"
+                            autocomplete="current-password">
                         <a href="#" class="text-decoration-none mt-1 d-block" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasForgotPassword" aria-controls="offcanvasForgotPassword">Forgot
                             your
@@ -199,15 +198,18 @@
                     </div>
                     <div class="mb-3">
                         <label for="emailPhone" class="form-label">Email or Phone</label>
-                        <input type="text" class="form-control" id="emailPhone" placeholder="Email or Phone">
+                        <input type="text" class="form-control" autocomplete="username" id="emailPhone"
+                            placeholder="Email or Phone">
                     </div>
                     <div class="mb-3">
                         <label for="newPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="newPassword" placeholder="Password">
+                        <input type="password" class="form-control" autocomplete="new-password" id="newPassword"
+                            placeholder="Password">
                     </div>
                     <div class="mb-3">
                         <label for="re-Password" class="form-label">Re-Password</label>
-                        <input type="password" class="form-control" id="rePassword" placeholder="Confirm Password">
+                        <input type="password" class="form-control" autocomplete="re-password" id="rePassword"
+                            placeholder="Confirm Password">
                     </div>
                     <button type="submit" class="btn btn-dark w-100">Create Account</button>
                     <div class="text-center mt-3">

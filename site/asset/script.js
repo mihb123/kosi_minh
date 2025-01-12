@@ -41,12 +41,38 @@ $(document).ready(function () {
 
     });
 
-    // update window.location.href - filter color
-    $('.filter-section .color_filter').on('change', function () {
-        var id = $('.filter-section .color_filter:checked').val();
-        window.location.href = `?c=product&colorId=${id}`;
-    });
 })
+
+// color filter
+// Lắng nghe sự kiện "change" khi checkbox được chọn hoặc bỏ chọn
+$('.filter-section .color_filter').on('change', function () {
+    let currentUrl = new URL(window.location.href);
+
+    if ($(this).is(':checked')) {
+        // Nếu checkbox được chọn, thêm tham số "colorId" với giá trị mới
+        let selectedColor = $(this).val();
+        currentUrl.searchParams.set('colorId', selectedColor);
+    } else {
+        // Nếu checkbox bị bỏ chọn, xóa tham số "colorId"
+        currentUrl.searchParams.delete('colorId');
+    }
+
+    // Reload trang với URL mới
+    window.location.href = currentUrl.toString();
+});
+
+// material filter
+$('.filter-section .material_filter').on('change', function () {
+    let currentUrl = new URL(window.location.href);
+    if ($(this).is(':checked')) {
+        let selectedColor = $(this).val();
+        currentUrl.searchParams.set('materialId', selectedColor);
+    } else {
+        currentUrl.searchParams.delete('materialId');
+    }
+    // Reload trang với URL mới
+    window.location.href = currentUrl.toString();
+});
 
 // Scroll To Top Functionality
 const scrollToTopButton = document.getElementById("scrollToTop");
@@ -102,7 +128,7 @@ function toggleReviewForm() {
 }
 
 // payment
-// Lấy tất cả các thẻ `payment-option`
+// Lấy tất cả các thẻ `payment - option`
 const paymentOptions = document.querySelectorAll(".payment-option");
 if (paymentOptions.length > 0) {
     paymentOptions.forEach(option => {
@@ -120,19 +146,21 @@ if (paymentOptions.length > 0) {
 // Khởi tạo thanh trượt với noUiSlider - cần fix lại
 const priceSlider = document.getElementById("price-slider");
 noUiSlider.create(priceSlider, {
-    start: [0, 300],
+
+    start: [0, 500],
     connect: true,
     range: {
         min: 0,
-        max: 300,
+        max: 500,
     },
     step: 1,
     tooltips: true,
     format: {
-        to: (value) => `$${Math.round(value)}`,
+        to: (value) => `$${Math.round(value)} `,
         from: (value) => Number(value.replace("$", "")),
     },
 });
+// filter price range
 
 // Gắn sự kiện hover để điều chỉnh hiển thị tooltip
 const handles = document.querySelectorAll(".noUi-handle");
@@ -146,12 +174,22 @@ handles.forEach((handle) => {
         const tooltip = handle.querySelector(".noUi-tooltip");
         if (tooltip) tooltip.style.display = "none";
     });
+
+    // update href de xu ly data tren backend
+    handle.addEventListener("mouseup", () => {
+        let currentUrl = new URL(window.location.href);
+        const minLabel = document.getElementById("minPriceLabel").textContent.replace("$", '');
+        const maxLabel = document.getElementById("maxPriceLabel").textContent.replace("$", '');
+
+        currentUrl.searchParams.set('minPrice', minLabel.trim());
+        currentUrl.searchParams.set('maxPrice', maxLabel.trim());
+        window.location.href = currentUrl.toString();
+    })
 });
 
-const minLabel = document.getElementById("minPriceLabel");
-const maxLabel = document.getElementById("maxPriceLabel");
-
 priceSlider.noUiSlider.on("update", (values) => {
+    const minLabel = document.getElementById("minPriceLabel");
+    const maxLabel = document.getElementById("maxPriceLabel");
     minLabel.textContent = values[0]; // Hiển thị giá trị min
     maxLabel.textContent = values[1]; // Hiển thị giá trị max
 });
@@ -166,10 +204,5 @@ $(document).ready(function () {
         $(this).toggleClass("full-width", $(this).val().length > 25);
     });
 
-    // Hiển thị kết quả khi user bấm nút tìm kiếm
-    $("form").on("submit", function (e) {
-        e.preventDefault(); // Chặn load lại trang
-        $resultInfo.toggle($searchInput.val().trim() !== "");
-    });
 });
 

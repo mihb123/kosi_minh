@@ -117,11 +117,11 @@ class Product
         return $this;
     }
 
-    function getColor()
+    function getSku()
     {
         $skuRepo = new SkuRepo();
-        $colors = $skuRepo->findProductId($this->getId());
-        return $colors;
+        $skus = $skuRepo->findProductId($this->getId());
+        return $skus;
     }
 
     function getDiscount()
@@ -129,5 +129,25 @@ class Product
         $discountRepo = new DiscountRepo();
         $discount = $discountRepo->find($this->getDiscountId());
         return $discount;
+    }
+
+    function getColors()
+    {
+        $colorRepo = new ColorRepo();
+        $skus = $this->getSku();
+        foreach ($skus as $sku) {
+            $colors[] = $colorRepo->find($sku->getColorId());
+        }
+        return $colors;
+    }
+
+    function getMaterials()
+    {
+        $materialRepo = new MaterialRepo();
+        $skus = $this->getSku();
+        foreach ($skus as $sku) {
+            $materials[] = $materialRepo->find($sku->getMaterialId());
+        }
+        return $materials;
     }
 }

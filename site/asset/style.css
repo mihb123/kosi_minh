@@ -74,7 +74,7 @@ img {
 }
 
 .image__inner img:hover {
-  transform: scale(1.2);
+  transform: scale(1.08);
 }
 
 .image__inner {
@@ -82,13 +82,13 @@ img {
   overflow: hidden;
 }
 
-.kosiProduct .productName {
+/* .kosiProduct .productName {
   font-family: kosi-body;
-}
+} */
 
 .image__inner .icons {
   position: absolute;
-  bottom: 10px;
+  bottom: 24px;
   right: 10px;
   flex-direction: row;
   display: none;
@@ -103,8 +103,8 @@ img {
   cursor: pointer;
   background: black;
   color: white;
-  padding: 10px 13px;
-  padding-top: 12px;
+  padding: 10px 12px;
+  
   border-radius: 50%;
 }
 
