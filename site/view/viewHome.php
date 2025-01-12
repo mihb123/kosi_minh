@@ -78,14 +78,20 @@
             <!-- Blog Card <?= $i ?> -->
 
             <div class="col">
-                <div class="card border-0">
-                    <img src="image/blog-<?= $i ?>_540x.webp" class="card-img-top" alt="Blog Image <?= $i ?>">
+                <div class="card border-0 ">
+                    <a href="/" class="image__inner">
+                        <img src="image/blog-<?= $i ?>_540x.webp" class="card-img-top " alt="Blog Image <?= $i ?>">
+                    </a>
+
                     <div class="card-body text-center">
                         <p class="text-muted mb-2">
                             <i class="bi bi-person"></i> Vela Admin -
                             <i class="bi bi-calendar"></i> April 15, 2024
                         </p>
-                        <h6 class="card-title">Going all-in with millennial design</h6>
+                        <a href="">
+                            <h6 class="card-title">Going all-in with millennial design</h6>
+                        </a>
+
                         <a href="#" class="btn btn-link text-decoration-none ">Read more</a>
                     </div>
                 </div>
