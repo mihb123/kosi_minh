@@ -96,19 +96,32 @@
                             aria-controls="offcanvasTop">
                             <i class="icon kosi-icon- kosi-icon-search fs-20"></i>
                         </a>
+                        <?php
+                        if (empty($_SESSION['wishlist'])) {
+                            if (empty($_COOKIE['wishlist'])) {
+                                $countWishlist = 0;
+                            }
+                            $_SESSION['wishlist'] = $_COOKIE['wishlist'];
+                        }
+                        $Wlist = unserialize($_SESSION['wishlist']);
+                        if (!$Wlist) {
+                            $countWishlist = 0;
+                        } else {
+                            $countWishlist = count($Wlist);
+                        }
 
-
+                        ?>
                         <!-- wishlist -->
                         <a href="?c=wishlist" class="position-relative">
                             <i class="icon kosi-icon-heart fs-23"></i>
-                            <span class="count">1</span>
+                            <span class="count"><?= $countWishlist ?></span>
                         </a>
 
                         <!-- cart-icon -->
                         <a class="position-relative" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas">
                             <i class="icon icon-cart kosi-icon-cart fs-23"></i>
-                            <span class="countCart">1</span>
+                            <span class="countCart"></span>
                         </a>
 
                     </div>

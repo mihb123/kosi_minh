@@ -231,6 +231,53 @@ function minusItem(self, id) {
     });
 }
 
+// wishlist
+function addWishlist(self, id) {
+    $(self).attr('class', 'removeWishlist')
+    $(self).attr('onclick', 'removeWishlist(this, ' + id + ')')
+    $(self).html(
+        `<i class="bi bi-heart" title="Remove to Wishlist" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-delay='{"show": 100, "hide": 100}'></i> `
+    )
+    $('.bs-tooltip-auto').remove();
+    $.ajax({
+        type: "get",
+        url: "?c=wishlist&a=add",
+        data: { product_id: id },
+        success: function (response) {
+            let wishlist = JSON.parse(response);
+            let count = wishlist.length
+            $('.count').html(count);
+            alert('Thêm vào wishlist thành công');
+        }
+    });
+}
+
+function removeWishlist(self, id) {
+    $(self).attr('class', 'addWishlist')
+    $(self).attr('onclick', 'addWishlist(this, ' + id + ')')
+    $(self).html(
+        `<i class="bi bi-heart" title="Add to Wishlist" data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-delay='{"show": 100, "hide": 100}'></i> `
+    )
+    $('.bs-tooltip-auto').remove();
+    $.ajax({
+        type: "get",
+        url: "?c=wishlist&a=remove",
+        data: { product_id: id },
+        success: function (response) {
+            let wishlist = JSON.parse(response);
+            let count = wishlist.length
+            $('.count').html(count);
+            $(`.kosiProduct_${id}`).remove();
+            $('.bs-tooltip-auto').remove();
+            alert('Đã loại bỏ ra khỏi wishlist');
+        }
+    });
+}
+
+$('.removeWishlist>i').attr('title', 'Remove to wishlist');
+
 // sidebar - price range
 // Khởi tạo thanh trượt với noUiSlider - cần fix lại
 const priceSlider = document.getElementById("price-slider");
