@@ -18,35 +18,35 @@
                 <tbody>
                     <?php $i = 1;
                     for ($i; $i <= 4; $i++) { ?>
-                    <tr>
-                        <td width="20%">
-                            <img src="image/Product-IMG-<?= $i ?>_360x.webp" alt="Alex lounge chair"
-                                class="product_img">
-                        </td>
-                        <td width="70%">
+                        <tr>
+                            <td width="20%">
+                                <img src="image/Product-IMG-<?= $i ?>_360x.webp" alt="Alex lounge chair"
+                                    class="product_img">
+                            </td>
+                            <td width="70%">
 
-                            <div class="mb-4">
-                                <strong>Alex lounge chair</strong><br>
-                                <span>Color: LightBlue</span><br>
-                                <span>Material: Any</span><br>
-                                <span>$150.00</span><br>
-                            </div>
+                                <div class="mb-4">
+                                    <strong>Alex lounge chair</strong><br>
+                                    <span>Color: LightBlue</span><br>
+                                    <span>Material: Any</span><br>
+                                    <span>$150.00</span><br>
+                                </div>
 
-                            <div class="">
-                                <button class="btn btn-outline-secondary btn-sm minus-<?= $i ?>">-</button>
-                                <span class="mx-2 equal-<?= $i ?>">3</span>
-                                <button class="btn btn-outline-secondary btn-sm plus-<?= $i ?>">+</button>
-                            </div>
+                                <div class="">
+                                    <button class="btn btn-outline-secondary btn-sm minus-<?= $i ?>">-</button>
+                                    <span class="mx-2 equal-<?= $i ?>">3</span>
+                                    <button class="btn btn-outline-secondary btn-sm plus-<?= $i ?>">+</button>
+                                </div>
 
-                        </td>
-                        <td width="10%">
-                            <div class="text-sm-end">
-                                <i class="bi bi-trash fs-5 i"></i>
-                                <span>$150.00</span><br>
+                            </td>
+                            <td width="10%">
+                                <div class="text-sm-end">
+                                    <i class="bi bi-trash fs-5 i"></i>
+                                    <span>$150.00</span><br>
 
-                            </div>
-                        </td>
-                    </tr>
+                                </div>
+                            </td>
+                        </tr>
                     <?php } ?>
                 </tbody>
             </table>

@@ -5,20 +5,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body d-flex flex-column justify-content-between">
-        <div class="d-flex align-items-center mb-3">
-            <img src="image/Product-IMG-0_360x.webp" alt="Product 1" class="img-thumbnail"
-                style="width: 50px; height: 50px;">
-            <div class="ms-3">
-                <p class="mb-0">Wicked lounge rattan</p>
-                <strong>$</strong>
-                <strong class="priceInCart">288.00</strong>
-            </div>
-            <div class="ms-auto d-flex align-items-center">
-                <button class="btn btn-outline-secondary btn-sm minus">-</button>
-                <span class="mx-2 equal">3</span>
-                <button class="btn btn-outline-secondary btn-sm plus">+</button>
-            </div>
+        <div class="cartSideBar">
+
         </div>
+
 
         <!-- Phần dưới -->
         <div class="align-items-end position-relative">

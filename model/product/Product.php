@@ -10,8 +10,9 @@ class Product
     private $category_id;
     private $featured_image;
     private $discount_id;
+    private $sale_price;
 
-    public function __construct($id, $name, $price, $description, $qty, $created_date, $category_id, $featured_image, $discount_id)
+    public function __construct($id, $name, $price, $description, $qty, $created_date, $category_id, $featured_image, $discount_id, $sale_price)
     {
         $this->id = $id;
         $this->name = $name;
@@ -22,6 +23,7 @@ class Product
         $this->category_id = $category_id;
         $this->featured_image = $featured_image;
         $this->discount_id = $discount_id;
+        $this->sale_price = $sale_price;
     }
 
     public function getId()
@@ -117,6 +119,12 @@ class Product
         return $this;
     }
 
+    function getSalePrice()
+    {
+        return $this->sale_price;
+    }
+
+
     function getSku()
     {
         $skuRepo = new SkuRepo();
@@ -130,6 +138,7 @@ class Product
         $discount = $discountRepo->find($this->getDiscountId());
         return $discount;
     }
+
 
     function getColors()
     {

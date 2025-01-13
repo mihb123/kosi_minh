@@ -20,7 +20,7 @@
 
         <!-- icons -->
         <div class="icons">
-            <a href="">
+            <a href="javascript:void(0)" class="addToCart" product_id=<?= $product->getId() ?>>
                 <i class="bi bi-cart" title="Add to cart" data-bs-toggle="tooltip" data-bs-placement="top"
                     data-bs-delay='{"show": 100, "hide": 100}'></i>
             </a>
@@ -33,7 +33,6 @@
                 <i class="bi bi-eye" title="Quick view" data-bs-toggle="tooltip" data-bs-placement="top"
                     data-bs-delay='{"show": 100, "hide": 100}'></i>
             </a>
-
         </div>
     </div>
 
@@ -57,11 +56,13 @@
     <!-- price -->
     <div class="price">
         <?php if ($discount) { ?>
-        <p class="d-inline original-price text-decoration-line-through">$<?= number_format($product->getPrice()) ?></p>
-        <p class="d-inline sale-price fw-medium">$<?= number_format($product->getPrice() * (1 - $discount / 100)) ?></p>
+        <span
+            class="d-inline original-price text-decoration-line-through">$<?= number_format($product->getPrice()) ?></span>
+        <span class="fw-medium sale_price"
+            sale_price=<?= $product->getPrice() * (1 - $discount / 100) ?>>$<?= $product->getPrice() * (1 - $discount / 100) ?></span>
 
         <?php } else { ?>
-        <span class="fw-medium original-price">$<?= number_format($product->getPrice()) ?></span>
+        <span class="fw-medium sale_price" sale_price=<?= $product->getPrice() ?>> $<?= $product->getPrice() ?></span>
         <?php } ?>
     </div>
 

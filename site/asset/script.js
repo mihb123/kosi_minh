@@ -142,6 +142,73 @@ if (paymentOptions.length > 0) {
     });
 }
 
+$.ajax({
+    type: "GET",
+    url: "?c=cart&a=display",
+    success: function (response) {
+        displayCart(response)
+    },
+    error: function (xhr, status, error) {
+        console.log(xhr.responseText);
+    }
+});
+
+$('.addToCart').on('click', function () {
+
+    let product_id = $(this).attr('product_id')
+
+    $.ajax({
+        type: "GET",
+        url: "?c=cart&a=add",
+        data: { product_id: product_id, qty: 1 },
+        success: function (response) {
+            displayCart(response)
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.responseText);
+        }
+    });
+});
+
+function displayCart(data) {
+    try {
+        let json = JSON.parse(data);
+        let rows = "";
+        let items = json.items;
+        let total = json.total;
+        let Qty = json.qty;
+        for (let i in items) {
+            let item = items[i];
+            let id = item.product_id;
+            let name = item.name;
+            let price = item.unit_price;
+            let img = item.img;
+            let qty = item.qty;
+            let total = item.total;
+            let row =
+                `<div class="d-flex align-items-center mb-3" id = "${id}">
+            <img src="image/${img}" alt="${name}" class="img-thumbnail"
+                style="width: 50px; height: 50px;">
+            <div class="ms-3">
+                <p class="mb-0">${name}</p>
+                <strong>$</strong>
+                <strong class="priceInCart">${price}</strong>
+            </div>
+            <div class="ms-auto d-flex align-items-center">
+                <button class="btn btn-outline-secondary btn-sm minus">-</button>
+                <span class="mx-2 equal">${qty}</span>
+                <button class="btn btn-outline-secondary btn-sm plus">+</button>
+            </div>
+        </div>`
+            rows += row;
+        }
+        $('.cartSideBar').html(rows);
+
+    } catch (e) {
+        console.error("Error parsing JSON:", e);
+    }
+}
+
 // sidebar - price range
 // Khởi tạo thanh trượt với noUiSlider - cần fix lại
 const priceSlider = document.getElementById("price-slider");
@@ -205,4 +272,6 @@ $(document).ready(function () {
     });
 
 });
+
+
 

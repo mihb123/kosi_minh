@@ -5,7 +5,7 @@ class ProductRepo
     {
         global $conn;
         $products = [];
-        $sql = "SELECT * FROM product";
+        $sql = "SELECT * FROM view_product";
 
         if ($condition) {
             $sql .= " WHERE $condition"; //SELECT * FROM view_product WHERE name LIKE '%abc%'  AND create_date='2020-08-07'
@@ -33,7 +33,8 @@ class ProductRepo
                     $row['created_date'],
                     $row['category_id'],
                     $row['featured_image'],
-                    $row['discount_id']
+                    $row['discount_id'],
+                    $row['sale_price']
                 );
                 $products[] = $product;
             }
@@ -70,8 +71,9 @@ class ProductRepo
         $category_id = $data["category_id"];
         $featured_image = $data["featured_image"];
         $discount_id = $data["discount_id"];
+        $sale_price = $data["sale_price"];
 
-        $sql = "INSERT INTO product (name, price, description, qty, created_date, category_id, featured_image, discount_id) VALUES ('$name', $price, '$description', $qty, '$created_date', $category_id, '$featured_image', $discount_id)";
+        $sql = "INSERT INTO product (name, price, description, qty, created_date, category_id, featured_image, discount_id) VALUES ('$name', $price, '$description', $qty, '$created_date', $category_id, '$featured_image', $discount_id,$sale_price)";
         if ($conn->query($sql) === TRUE) {
             return $conn->insert_id;
         }
@@ -91,6 +93,7 @@ class ProductRepo
         $category_id = $product->getCategoryId();
         $featured_image = $product->getFeaturedImage();
         $discount_id = $product->getDiscountId();
+        $sale_price = $product->getSalePrice();
 
         $sql = "UPDATE product SET 
             name='$name', 
@@ -100,7 +103,8 @@ class ProductRepo
             created_date='$created_date', 
             category_id=$category_id, 
             featured_image='$featured_image', 
-            discount_id=$discount_id 
+            discount_id=$discount_id,
+            sale_price=$sale_price 
             WHERE id=$id";
 
         if ($conn->query($sql) === TRUE) {

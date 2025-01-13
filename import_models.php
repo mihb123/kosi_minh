@@ -21,6 +21,7 @@ require_once ABSPATH . 'model/sku/Sku.php';
 require_once ABSPATH . 'model/view_sku/viewSku.php';
 require_once ABSPATH . 'model/ward/Ward.php';
 require_once ABSPATH . 'model/wishlist/Wishlist.php';
+require_once ABSPATH . 'model/cart/Cart.php';
 
 // Import all repository files
 require_once ABSPATH . 'model/category/CategoryRepo.php';

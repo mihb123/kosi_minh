@@ -1,4 +1,5 @@
 <?php
+session_start();
 // c là controller
 // a là action
 // controller student là mặc định
