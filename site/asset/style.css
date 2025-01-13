@@ -670,3 +670,7 @@ footer {
   top: 50%;
   right: 0;
 }
+
+.removeWishlist>i {
+  background-color: #cd8f5c;
+}
