@@ -94,8 +94,6 @@ if (scrollToTopButton) {
     });
 }
 
-
-
 function changeImage(element, imageUrl) {
     $(element).closest(".product-card").find("img").attr("src", imageUrl);
 }
@@ -195,18 +193,42 @@ function displayCart(data) {
                 <strong class="priceInCart">${price}</strong>
             </div>
             <div class="ms-auto d-flex align-items-center">
-                <button class="btn btn-outline-secondary btn-sm minus">-</button>
+                <button class="btn btn-outline-secondary btn-sm minus" onclick = "minusItem(this, ${id} )">-</button>
                 <span class="mx-2 equal">${qty}</span>
-                <button class="btn btn-outline-secondary btn-sm plus">+</button>
+                <button class="btn btn-outline-secondary btn-sm" onclick = "addItem(this, ${id} )">+</button>
             </div>
         </div>`
             rows += row;
         }
         $('.cartSideBar').html(rows);
+        $('#subtotalSection .subtotal').html(total.toFixed(2));
+        $('.countCart').html(Qty);
 
     } catch (e) {
         console.error("Error parsing JSON:", e);
     }
+}
+
+function addItem(self, id) {
+    $.ajax({
+        type: "get",
+        url: "?c=cart&a=add",
+        data: { product_id: id, qty: 1 },
+        success: function (response) {
+            displayCart(response);
+        }
+    });
+}
+
+function minusItem(self, id) {
+    $.ajax({
+        type: "get",
+        url: "?c=cart&a=minus",
+        data: { product_id: id },
+        success: function (response) {
+            displayCart(response);
+        }
+    });
 }
 
 // sidebar - price range

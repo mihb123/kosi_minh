@@ -43,4 +43,23 @@ class CartController
         $json = json_encode($cart->convertToArray());
         echo $json;
     }
+
+    function minus()
+    {
+        $cart = $this->fetch();
+        $product_id = $_GET['product_id'] ?? '';
+        $item = $cart->getItems();
+        $qty = $item[$product_id]['qty'];
+        if ($qty == 1) {
+            $cart->removeItem($product_id);
+        } else {
+            $qty = $qty - 1;
+            $cart->updateItem($product_id, $qty);
+        }
+
+        $this->store($cart);
+
+        $json = json_encode($cart->convertToArray());
+        echo $json;
+    }
 }

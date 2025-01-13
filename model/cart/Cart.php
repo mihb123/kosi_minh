@@ -49,6 +49,21 @@ class Cart
         $this->total += $qty * $product->getSalePrice();
     }
 
+    function updateItem($product_id, $qty)
+    {
+        $this->items[$product_id]['qty'] = $qty;
+        $this->items[$product_id]['total'] = $qty * $this->items[$product_id]['unit_price'];
+        $this->qty -= 1;
+        $this->total -= $this->items[$product_id]['unit_price'];
+    }
+
+    function removeItem($product_id)
+    {
+        $this->total -= $this->items[$product_id]['total'];
+        $this->qty -= $this->items[$product_id]['qty'];
+        unset($this->items[$product_id]);
+    }
+
     function convertToArray()
     {
         $a = array();

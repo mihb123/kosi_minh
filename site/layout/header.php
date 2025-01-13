@@ -108,7 +108,7 @@
                         <a class="position-relative" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas">
                             <i class="icon icon-cart kosi-icon-cart fs-23"></i>
-                            <span class="count">1</span>
+                            <span class="countCart">1</span>
                         </a>
 
                     </div>
