@@ -168,8 +168,8 @@
                             autocomplete="current-password">
                         <a href="#" class="text-decoration-none mt-1 d-block" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasForgotPassword" aria-controls="offcanvasForgotPassword">Forgot
-                            your
-                            password?</a>
+
+                            password</a>
                     </div>
 
                     <div>

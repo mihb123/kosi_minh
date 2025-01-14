@@ -152,20 +152,18 @@ $.ajax({
 });
 
 $('.addToCart').on('click', function () {
-
     let product_id = $(this).attr('product_id')
-
     $.ajax({
         type: "GET",
         url: "?c=cart&a=add",
-        data: { product_id: product_id, qty: 1 },
-        success: function (response) {
-            displayCart(response)
-        },
-        error: function (xhr, status, error) {
-            console.log(xhr.responseText);
-        }
-    });
+        data: { product_id: product_id, qty: 1 }
+    }).done(function (response) {
+        // let json = JSON.parse(response);
+        // let Qty = json.qty;
+        // $('.countCart').html(Qty);
+        displayCart(response);
+    })
+
 });
 
 function displayCart(data) {
@@ -201,7 +199,7 @@ function displayCart(data) {
             rows += row;
         }
         $('.cartSideBar').html(rows);
-        $('#subtotalSection .subtotal').html(total.toFixed(2));
+        $('#subtotalSection .subtotal').html(Number(total.toFixed(2)));
         $('.countCart').html(Qty);
 
     } catch (e) {
@@ -233,13 +231,15 @@ function minusItem(self, id) {
 
 // wishlist
 function addWishlist(self, id) {
+    $('.bs-tooltip-auto').remove();
     $(self).attr('class', 'removeWishlist')
     $(self).attr('onclick', 'removeWishlist(this, ' + id + ')')
     $(self).html(
         `<i class="bi bi-heart" title="Remove to Wishlist" data-bs-toggle="tooltip" data-bs-placement="top"
                     data-bs-delay='{"show": 100, "hide": 100}'></i> `
     )
-    $('.bs-tooltip-auto').remove();
+    $('[data-bs-toggle="tooltip"]').tooltip();
+
     $.ajax({
         type: "get",
         url: "?c=wishlist&a=add",
@@ -254,13 +254,16 @@ function addWishlist(self, id) {
 }
 
 function removeWishlist(self, id) {
+    $('.bs-tooltip-auto').remove();
     $(self).attr('class', 'addWishlist')
     $(self).attr('onclick', 'addWishlist(this, ' + id + ')')
     $(self).html(
         `<i class="bi bi-heart" title="Add to Wishlist" data-bs-toggle="tooltip" data-bs-placement="top"
                     data-bs-delay='{"show": 100, "hide": 100}'></i> `
     )
-    $('.bs-tooltip-auto').remove();
+    $('[data-bs-toggle="tooltip"]').tooltip();
+
+
     $.ajax({
         type: "get",
         url: "?c=wishlist&a=remove",
@@ -341,5 +344,3 @@ $(document).ready(function () {
     });
 
 });
-
-mmmm

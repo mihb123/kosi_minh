@@ -12,25 +12,25 @@
         <?php foreach ($categories as $category) {
             $productByCategory = $productRepo->getByCategory($category->getId());
         ?>
-            <div class="col">
-                <div class="card text-dark" style=" border: none;">
-                    <div class="image__inner">
-                        <a href="?c=product&caregory_id=<? $category->getId() ?>">
-                            <img src="image/<?= $productByCategory[0]->getFeaturedImage() ?>" class="card-img " alt="abc">
-                        </a>
-                    </div>
+        <div class="col">
+            <div class="card text-dark" style=" border: none;">
+                <div class="image__inner">
+                    <a href="?c=product&caregory_id=<? $category->getId() ?>">
+                        <img src="image/<?= $productByCategory[0]->getFeaturedImage() ?>" class="card-img " alt="abc">
+                    </a>
+                </div>
 
-                    <div class="card-img-overlay">
-                        <h3 class="card-title" style="font-weight: 600; font-size:34px;"><?= $category->getName() ?></h3>
-                        <a href="?c=product&caregory_id=<? $category->getId() ?>"
-                            class="text-decoration-underline fw-medium">View all</a>
-                    </div>
+                <div class="card-img-overlay">
+                    <h3 class="card-title" style="font-weight: 600; font-size:34px;"><?= $category->getName() ?></h3>
+                    <a href="?c=product&caregory_id=<? $category->getId() ?>"
+                        class="text-decoration-underline fw-medium">View all</a>
                 </div>
             </div>
+        </div>
         <?php } ?>
     </div>
 </section>
-<?php var_dump($Wlist); ?>
+
 <!-- show Product -->
 <section class="suggestProduct container-lg ">
     <div class="text-center textPart">
@@ -42,7 +42,7 @@
     <div class="row gy-4 ">
         <?php foreach ($products as $product) {
         ?>
-            <?php require 'layout/product.php' ?>
+        <?php require 'layout/product.php' ?>
         <?php }  ?>
 
         <div class="text-center mb-5">
@@ -75,27 +75,27 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php $i = 1;
             for ($i; $i < 5; $i++) { ?>
-                <!-- Blog Card <?= $i ?> -->
+            <!-- Blog Card <?= $i ?> -->
 
-                <div class="col">
-                    <div class="card border-0 ">
-                        <a href="/" class="image__inner">
-                            <img src="image/blog-<?= $i ?>_540x.webp" class="card-img-top " alt="Blog Image <?= $i ?>">
+            <div class="col">
+                <div class="card border-0 ">
+                    <a href="/" class="image__inner">
+                        <img src="image/blog-<?= $i ?>_540x.webp" class="card-img-top " alt="Blog Image <?= $i ?>">
+                    </a>
+
+                    <div class="card-body text-center">
+                        <p class="text-muted mb-2">
+                            <i class="bi bi-person"></i> Vela Admin -
+                            <i class="bi bi-calendar"></i> April 15, 2024
+                        </p>
+                        <a href="">
+                            <h6 class="card-title">Going all-in with millennial design</h6>
                         </a>
 
-                        <div class="card-body text-center">
-                            <p class="text-muted mb-2">
-                                <i class="bi bi-person"></i> Vela Admin -
-                                <i class="bi bi-calendar"></i> April 15, 2024
-                            </p>
-                            <a href="">
-                                <h6 class="card-title">Going all-in with millennial design</h6>
-                            </a>
-
-                            <a href="#" class="btn btn-link text-decoration-none ">Read more</a>
-                        </div>
+                        <a href="#" class="btn btn-link text-decoration-none ">Read more</a>
                     </div>
                 </div>
+            </div>
             <?php } ?>
 
         </div>
