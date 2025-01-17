@@ -59,7 +59,7 @@
             <div class="carousel-caption content__inner text-black align-content-center">
                 <h2>NEW ARRIVALS</h2>
                 <p>lassical Decors</p>
-                <a type="button" class="btn btn-outline-dark">Order now</a>
+                <a href="?c=product" type="button" class="btn btn-outline-dark">Order now</a>
             </div>
         </div>
     </div>
@@ -68,31 +68,31 @@
 <!-- Blog -->
 <!-- Blog Section -->
 <section class="py-5">
-    <div class="container text-center">
+    <div class="container ">
         <!-- Section Title -->
-        <h2 class="fw-bold">Our Blogs</h2>
-        <p class="text-muted">Find a bright idea to suit your taste with our great selection</p>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <?php $i = 1;
-            for ($i; $i < 5; $i++) { ?>
-            <!-- Blog Card <?= $i ?> -->
+        <div class="text-center">
+            <h2 class="fw-bold">Our Blogs</h2>
+            <p class="text-muted">Find a bright idea to suit your taste with our great selection</p>
+        </div>
 
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <?php foreach ($blogs as $blog) { ?>
+            <!-- Blog Card -->
             <div class="col">
                 <div class="card border-0 ">
-                    <a href="/" class="image__inner">
-                        <img src="image/blog-<?= $i ?>_540x.webp" class="card-img-top " alt="Blog Image <?= $i ?>">
+                    <a href="?c=blog&a=detail&id=<?= $blog->getId() ?>" class="image__inner">
+                        <img src="image/blog-<?= $blog->getId() ?>_540x.webp" class="card-img-top "
+                            alt="Blog Image <?= $blog->getId() ?>">
                     </a>
 
-                    <div class="card-body text-center">
+                    <div class="card-body ps-0">
                         <p class="text-muted mb-2">
-                            <i class="bi bi-person"></i> Vela Admin -
-                            <i class="bi bi-calendar"></i> April 15, 2024
+                            <i class="bi bi-person"></i> <?= $blog->getAuthor() ?>-
+                            <i class="bi bi-calendar"></i> <?= date('d-m-y', strtotime($blog->getCreatedDate())) ?>
                         </p>
                         <a href="">
-                            <h6 class="card-title">Going all-in with millennial design</h6>
+                            <h6 class="card-title"> <?= $blog->getTitle() ?></h6>
                         </a>
-
-                        <a href="#" class="btn btn-link text-decoration-none ">Read more</a>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
 
         </div>
         <div class="text-center">
-            <a type="button" class="btn btn-dark">View All Post</a>
+            <a href="?c=blog" type="button" class="btn btn-dark">View All Post</a>
         </div>
     </div>
 </section>

@@ -1,30 +1,34 @@
 <?php
 class OrderItem
 {
-    protected $skuId;
-    protected $orderId;
+    protected $order_id;
+    protected $product_id;
     protected $qty;
-    protected $unitPrice;
+    protected $unit_price;
     protected $total;
+    protected $product_name;
+    protected $product_image;
 
-    public function __construct($skuId, $orderId, $qty, $unitPrice, $total)
+    public function __construct($order_id, $product_id, $qty, $unit_price, $total, $product_name, $product_image)
     {
-        $this->skuId = $skuId;
-        $this->orderId = $orderId;
+        $this->order_id = $order_id;
+        $this->product_id = $product_id;
         $this->qty = $qty;
-        $this->unitPrice = $unitPrice;
+        $this->unit_price = $unit_price;
         $this->total = $total;
+        $this->product_name = $product_name;
+        $this->product_image = $product_image;
     }
 
     // Getters
-    public function getSkuId()
-    {
-        return $this->skuId;
-    }
-
     public function getOrderId()
     {
-        return $this->orderId;
+        return $this->order_id;
+    }
+
+    public function getProductId()
+    {
+        return $this->product_id;
     }
 
     public function getQty()
@@ -34,7 +38,7 @@ class OrderItem
 
     public function getUnitPrice()
     {
-        return $this->unitPrice;
+        return $this->unit_price;
     }
 
     public function getTotal()
@@ -42,16 +46,37 @@ class OrderItem
         return $this->total;
     }
 
+    public function getProductName()
+    {
+        return $this->product_name;
+    }
+
+    public function getProductImage()
+    {
+        return $this->product_image;
+    }
+
     // Setters
+    public function setProductName($product_name)
+    {
+        $this->product_name = $product_name;
+        return $this;
+    }
+
+    public function setProductImage($product_image)
+    {
+        $this->product_image = $product_image;
+        return $this;
+    }
     public function setQty($qty)
     {
         $this->qty = $qty;
         return $this;
     }
 
-    public function setUnitPrice($unitPrice)
+    public function setUnitPrice($unit_price)
     {
-        $this->unitPrice = $unitPrice;
+        $this->unit_price = $unit_price;
         return $this;
     }
 

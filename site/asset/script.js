@@ -1,4 +1,9 @@
 // Your cart - sidebar
+$('.logout-btn').on('click', function () {
+    if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+        window.location.href = '?c=auth&a=logout'; // Chuyển hướng đến URL xử lý logout
+    }
+});
 
 $(document).ready(function () {
     function toggleView(sectionId) {
@@ -158,9 +163,6 @@ $('.addToCart').on('click', function () {
         url: "?c=cart&a=add",
         data: { product_id: product_id, qty: 1 }
     }).done(function (response) {
-        // let json = JSON.parse(response);
-        // let Qty = json.qty;
-        // $('.countCart').html(Qty);
         displayCart(response);
     })
 
@@ -222,9 +224,73 @@ function minusItem(self, id) {
     $.ajax({
         type: "get",
         url: "?c=cart&a=minus",
-        data: { product_id: id },
+        data: { product_id: id, qty: 1 },
         success: function (response) {
             displayCart(response);
+        }
+    });
+}
+
+function minusItemDetail(self, id) {
+    let span = $(`#product_id_${id} .productQty .equal`)
+    if (span.text() == 1) {
+        removeItem(id);
+        return;
+    }
+    $.ajax({
+        type: "get",
+        url: "?c=cart&a=minus",
+        data: { product_id: id }
+    })
+        .done(function (response) {
+            displayCartDetail(response, id)
+        })
+}
+
+function addItemDetail(self, id) {
+    const span = self.parentElement.querySelector('.equal');
+
+    $.ajax({
+        type: "get",
+        url: "?c=cart&a=add",
+        data: { product_id: id, qty: 1 }
+    })
+        .done(function (response) {
+            let json = JSON.parse(response);
+            let item = json.items[id];
+            let total = Number(json.total).toFixed(2);
+
+            // Tìm phần tử span gần nút được nhấn   
+            span.textContent = item.qty;
+            $('#subtotal').html(total)
+            $(`#product_id_${id} .total_of_product span`).html(`$${Number(item.total).toFixed(2)}`)
+        })
+}
+
+function displayCartDetail(data, id) {
+    let json = JSON.parse(data);
+    let item = json.items[id];
+    let total = Number(json.total).toFixed(2);
+
+    // Tìm phần tử span gần nút được nhấn   
+    $(`#product_id_${id} .productQty .equal`).html(item.qty)
+    $('#subtotal').html(total)
+    $(`#product_id_${id} .total_of_product span`).html(`$${Number(item.total).toFixed(2)}`)
+}
+
+function removeItem(id) {
+    let equal = $(`#product_id_${id} .productQty .equal`);
+    let qty = equal.text();
+    $(`#product_id_${id}`).remove();
+
+    $.ajax({
+        type: "get",
+        url: "?c=cart&a=minus",
+        data: { product_id: id, qty: qty },
+        success: function (response) {
+            let json = JSON.parse(response);
+            let total = Number(json.total).toFixed(2);
+            $('#subtotal').html(total)
         }
     });
 }
@@ -280,6 +346,43 @@ function removeWishlist(self, id) {
 }
 
 $('.removeWishlist>i').attr('title', 'Remove to wishlist');
+
+// address
+$('#province').change(function () {
+    let id = $(this).val();
+    let position = 'district';
+    $.ajax({
+        type: "get",
+        url: "?c=address&a=getDistricts",
+        data: { province_id: id },
+        success: function (response) {
+            updateInput(response, position);
+        }
+    });
+})
+
+$('#district').change(function () {
+    let id = $(this).val();
+    let position = 'ward';
+    $.ajax({
+        type: "get",
+        url: "?c=address&a=getWards",
+        data: { district_id: id },
+        success: function (response) {
+            updateInput(response, position);
+        }
+    });
+})
+
+function updateInput(response, position) {
+    let rows = '';
+    let json = JSON.parse(response);
+    for (let i in json) {
+        let row = `<option value="${json[i].id}">${json[i].name}</option>`
+        rows += row;
+    }
+    $(`#${position}`).append(rows);
+}
 
 // sidebar - price range
 // Khởi tạo thanh trượt với noUiSlider - cần fix lại

@@ -14,7 +14,7 @@ class CustomerRepo
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $customer = new Customer($row["id"], $row["name"], $row["email"], $row["phone"], $row["birthday"], $row["verified"], $row["password"]);
+                $customer = new Customer($row["id"], $row["name"], $row["email"], $row["phone"], $row["birthday"], $row["verified"], $row["password"], $row["shipping_name"], $row["shipping_phone"], $row["shipping_address"], $row["shipping_ward_id"]);
                 $customers[] = $customer;
             }
         }
@@ -35,6 +35,15 @@ class CustomerRepo
         return $customer;
     }
 
+    function findEmail($email)
+    {
+        global $conn;
+        $condition = "email = '$email'";
+        $customers = $this->fetchAll($condition);
+        $customer = current($customers);
+        return $customer;
+    }
+
     function save($data)
     {
         global $conn;
@@ -44,8 +53,12 @@ class CustomerRepo
         $birthday = $data["birthday"];
         $verified = $data["verified"];
         $password = $data["password"];
+        $shipping_name = $data["shipping_name"];
+        $shipping_phone = $data["shipping_phone"];
+        $shipping_address = $data["shipping_address"];
+        $shipping_ward_id = $data["shipping_ward_id"];
 
-        $sql = "INSERT INTO customer (name, email, phone, birthday, verified, password) VALUES ('$name', '$email', '$phone', '$birthday', $verified, '$password')";
+        $sql = "INSERT INTO customer (name, email, phone, birthday, verified, password, shipping_name, shipping_phone, shipping_address, shipping_ward_id) VALUES ('$name', '$email', '$phone', '$birthday', $verified, '$password', '$shipping_name', '$shipping_phone', '$shipping_address', '$shipping_ward_id')";
         if ($conn->query($sql) === TRUE) {
             return $conn->insert_id;
         }
@@ -63,6 +76,10 @@ class CustomerRepo
         $birthday = $customer->getBirthday();
         $verified = $customer->getVerified();
         $password = $customer->getPassword();
+        $shipping_name = $customer->getShippingName();
+        $shipping_phone = $customer->getShippingPhone();
+        $shipping_address = $customer->getShippingAddress();
+        $shipping_ward_id = $customer->getShippingWardId();
 
         $sql = "UPDATE customer SET 
             name='$name', 
@@ -70,7 +87,11 @@ class CustomerRepo
             phone='$phone', 
             birthday='$birthday', 
             verified=$verified, 
-            password='$password' 
+            password='$password', 
+            shipping_name='$shipping_name', 
+            shipping_phone='$shipping_phone', 
+            shipping_address='$shipping_address', 
+            shipping_ward_id='$shipping_ward_id' 
             WHERE id=$id";
 
         if ($conn->query($sql) === TRUE) {

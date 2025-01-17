@@ -1,44 +1,25 @@
 <?php
 class CartController
 {
-    function fetch()
-    {
-        if (!empty($_COOKIE["cart"])) {
-            $_SESSION["cart"] = $_COOKIE["cart"];
-        }
-
-        if (!empty($_SESSION["cart"])) {
-            $cart = unserialize($_SESSION['cart']);
-        } else {
-            $cart = new Cart;
-        }
-
-        return $cart;
-    }
-
-    function store($cart)
-    {
-        $_SESSION['cart'] = serialize($cart);
-        setcookie('cart', serialize($cart), time() + 24 * 3600, '/');
-    }
-
     function display()
     {
-        $cart = $this->fetch();
-        $this->store($cart);
+        $cartRepo = new CartRepo;
+        $cart = $cartRepo->fetch();
+        $cartRepo->store($cart);
         $json = json_encode($cart->convertToArray());
         echo $json;
     }
 
     function add()
     {
-        $cart = $this->fetch();
+        $cartRepo = new CartRepo;
+        $cart = $cartRepo->fetch();
 
         $product_id = $_GET['product_id'] ?? '';
         $qty = $_GET['qty'] ?? '';
 
         $cart->addItem($product_id, $qty);
-        $this->store($cart);
+        $cartRepo->store($cart);
 
         $json = json_encode($cart->convertToArray());
         echo $json;
@@ -46,20 +27,34 @@ class CartController
 
     function minus()
     {
-        $cart = $this->fetch();
+        $cartRepo = new CartRepo;
+        $cart = $cartRepo->fetch();
+
         $product_id = $_GET['product_id'] ?? '';
+        $number = $_GET['product_id'] ?? 0;
         $item = $cart->getItems();
         $qty = $item[$product_id]['qty'];
-        if ($qty == 1) {
+        if ($qty <= $number) {
             $cart->removeItem($product_id);
         } else {
-            $qty = $qty - 1;
+            $qty = $qty - $number;
             $cart->updateItem($product_id, $qty);
         }
 
-        $this->store($cart);
+        $cartRepo->store($cart);
 
         $json = json_encode($cart->convertToArray());
         echo $json;
+    }
+
+    function show()
+    {
+        $cartRepo = new CartRepo;
+        $cart = $cartRepo->fetch();
+        $items = $cart->getItems();
+        $Qty = $cart->getQty();
+        $Total = $cart->getTotal();
+
+        require 'view/viewCart.php';
     }
 }

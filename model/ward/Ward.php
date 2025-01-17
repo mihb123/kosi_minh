@@ -53,4 +53,12 @@ class Ward
         $this->districtId = $districtId;
         return $this;
     }
+
+    function getDistrict()
+    {
+        $id = $this->getDistrictId();
+        $districtRepo = new DistrictRepo;
+        $district = $districtRepo->find($id);
+        return $district;
+    }
 }

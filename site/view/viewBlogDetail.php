@@ -7,16 +7,12 @@
     <div class="row">
         <!-- Main Content -->
         <div class="col-lg-9 px-4">
-            <img src="image/Product-IMG-9_360x.webp" alt="" class="mb-3 img-fluid" style="max-height: 500px;">
-            <h2 class="mb-3">Colorful office redesign</h2>
-            <p class="text-muted">By Vela Admin • April 15, 2024</p>
+            <img src="image/blog-<?= $blog->getId() ?>_540x.webp" alt="" class="mb-3 img-fluid"
+                style="max-height: 500px;">
+            <h2 class="mb-3"><?= $blog->getTitle() ?></h2>
+            <p class="text-muted">By <?= $blog->getAuthor() ?> • April 15, 2024</p>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Amet purus gravida quis blandit turpis cursus in.
-            </p>
-            <p>
-                Sapien pellentesque habitant morbi tristique senectus et. Fames ac turpis egestas integer eget aliquet
-                nibh praesent. In ante metus dictum at tempor commodo ullamcorper a lacus.
+                <?= $blog->getContent() ?>
             </p>
 
             <blockquote class="blockquote bg-light p-4 my-4 border-start border-5 border-warning">
@@ -52,16 +48,8 @@
                     <a href="#" class="text-decoration-none"><i class="bi bi-instagram"></i></a>
                 </div>
             </div>
-            <!-- Sidebar Toggle Button -->
-            <div class="sidebar_btn">
-                <a class="" data-bs-toggle="offcanvas" href="#offcanvasSidebar" role="button"
-                    aria-controls="offcanvasSidebar">
-                    <span style="padding: 10px; background-color: black; border-radius: 4px; color: white;">
-                        < </span>
-                </a>
-            </div>
             <!-- Sidebar Offcanvas -->
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasSidebar"
+            <div class="offcanvas offcanvas-end " tabindex="-1" id="offcanvasSidebar"
                 aria-labelledby="offcanvasSidebarLabel">
                 <div class="offcanvas-header">
                     <h5 id="offcanvasSidebarLabel">Sidebar</h5>
@@ -71,6 +59,14 @@
                     <!-- Sidebar Content -->
                     <?php require 'layout/sidebarBlog.php' ?>
                 </div>
+            </div>
+            <!-- Sidebar Toggle Button -->
+            <div class="sidebar_btn d-lg-none">
+                <a class="" data-bs-toggle="offcanvas" href="#offcanvasSidebar" role="button"
+                    aria-controls="offcanvasSidebar">
+                    <span style="padding: 10px; background-color: black; border-radius: 4px; color: white;">
+                        < </span>
+                </a>
             </div>
         </div>
 

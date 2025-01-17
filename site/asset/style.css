@@ -674,3 +674,83 @@ footer {
 .removeWishlist>i {
   background-color: #cd8f5c;
 }
+
+/* Information */
+/* .account-info-container {} */
+
+.account-section {
+  max-width: 650px;
+  margin: 20px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.account-section h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #000;
+  font-weight: bold;
+}
+
+.account-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.account-section ul li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.account-section ul li span {
+  color: #333;
+}
+
+.account-section ul li span:last-child {
+  font-weight: bold;
+}
+
+.content-limit {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /* Giới hạn số dòng là 3 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.sidebar ul li {
+  margin-bottom: 15px;
+}
+
+.sidebar .active {
+  color: #cd8f5c
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.sidebar ul li a:hover {
+  color: #cd8f5c;
+}
+
+.date {
+  font-size: 13px;
+  font-weight: 500;
+}

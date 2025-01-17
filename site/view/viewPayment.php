@@ -4,11 +4,18 @@
     <!-- Left Section -->
     <div class="col-lg-6 justify-content-end info_payment row">
         <div class="info col-10" style="max-width:700px">
-            <form class="payment">
+            <form class="payment" action="?c=payment&a=order" method="POST">
                 <h4 class="mt-4">Liên hệ</h4>
                 <div class="mt-3">
-                    <label for="contact" class="form-label">Email hoặc số điện thoại di động</label>
-                    <input type="text" class="form-control" id="contact">
+                    <label for="contact" class="form-label">Email</label>
+                    <?php if ($email != 'khvl@gmail.com') { ?>
+                    <input type="text" class="form-control" name="email" id="contact"
+                        value="<?= $customer->getEmail() ?>">
+                    <?php } else { ?>
+                    <input type="hidden" class="form-control" name="email" id="contact" value="khvl@gmail.com">
+                    <input type="text" class="form-control" name="emailContact" id="contact"
+                        placeholder="Nhập địa chỉ email">
+                    <?php } ?>
                     <div class="form-check mt-2">
                         <input class="form-check-input" type="checkbox" id="subscribe">
                         <label class="form-check-label" for="subscribe">
@@ -18,65 +25,11 @@
                 </div>
 
                 <h4 class="mt-4">Giao hàng</h4>
-                <div class="mt-3">
-                    <label for="address" class="form-label">Số nhà, đường .v.v</label>
-                    <input type="text" class="form-control" id="address">
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6  mt-3">
-                        <label for="province" class="form-label">Tỉnh/Thành phố</label>
-                        <select class="form-select" id="province">
-                            <option selected>Chọn Tỉnh/Thành phố</option>
-                            <!-- Options -->
-                        </select>
-                    </div>
-                    <div class="col-lg-6 mt-3 ">
-                        <label for="district" class="form-label">Quận/Huyện</label>
-                        <select class="form-select" id="district">
-                            <option selected>Chọn Quận/Huyện</option>
-                            <!-- Options -->
-                        </select>
-                    </div>
-                    <div class="col-lg-6 mt-3 ">
-                        <label for="ward" class="form-label">Phường/Xã</label>
-                        <select class="form-select" id="ward">
-                            <option selected>Chọn Phường/Xã</option>
-                            <!-- Options -->
-                        </select>
-                    </div>
-                </div>
-
                 <div class="row mt-3">
-                    <div class="col-md-6">
-                        <label for="firstName" class="form-label">Tên</label>
-                        <input type="text" class="form-control" id="firstName">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="lastName" class="form-label">Họ</label>
-                        <input type="text" class="form-control" id="lastName">
-                    </div>
+                    <?php require 'layout/address.php' ?>
                 </div>
 
                 <div class="mt-3">
-                    <label for="fullAddress" class="form-label">Địa chỉ</label>
-                    <input type="text" class="form-control" id="fullAddress">
-                </div>
-
-                <div class="row mt-3">
-                    <div class="col-lg-6">
-                        <label for="city" class="form-label">Thành phố</label>
-                        <input type="text" class="form-control" id="city">
-                    </div>
-                    <div class="col-lg-6">
-                        <label for="postalCode" class="form-label">Mã bưu chính</label>
-                        <input type="text" class="form-control" id="postalCode">
-                    </div>
-                </div>
-
-                <div class="mt-3">
-                    <label for="phone" class="form-label">Điện thoại</label>
-                    <input type="text" class="form-control" id="phone">
                     <div class="form-check mt-2">
                         <input class="form-check-input" type="checkbox" id="saveInfo">
                         <label class="form-check-label" for="saveInfo">
@@ -129,21 +82,6 @@
                     </div>
                 </div>
 
-
-                <h5 class="mt-4">Địa chỉ thanh toán</h5>
-                <div class="form-check mb-1">
-                    <input class="form-check-input" type="radio" name="billingAddress" id="sameAddress" checked>
-                    <label class="form-check-label" for="sameAddress">
-                        Giống địa chỉ vận chuyển
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="billingAddress" id="differentAddress">
-                    <label class="form-check-label" for="differentAddress">
-                        Sử dụng địa chỉ thanh toán khác
-                    </label>
-                </div>
-
                 <h5 class="mt-4">Bạn biết tới chúng tôi qua kênh nào?</h5>
                 <select class="form-select">
                     <option selected>Chọn...</option>
@@ -169,33 +107,22 @@
             <h4 class="mt-4">Thanh toán</h4>
             <!-- Cart Items -->
             <ul class="list-group mb-3 ul-cart">
+                <?php foreach ($items as $item) { ?>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="">
                         <div class="d-flex align-items-center">
                             <div class="position-relative">
-                                <img src="image/Product-IMG-0_360x.webp" alt="Product 1" class="image_thumbnail mr-3">
+                                <img src="image/<?= $item['img'] ?>" alt="Product 1" class="image_thumbnail mr-3">
                                 <span class="badge bg-dark text-white position-absolute rounded-pill"
-                                    style=" margin: 0px; transform: translate(-70%, -30%) !important;">1
+                                    style=" margin: 0px; transform: translate(-70%, -30%) !important;"><?= $item['qty'] ?>
                                 </span>
                             </div>
-                            <span>Alex lounge chair</span>
+                            <span><?= $item['name'] ?></span>
                         </div>
                     </a>
-                    <span class="price">440.000 đ</span>
+                    <span class="price">$<?= $item['total'] ?></span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="">
-                        <div class="d-flex align-items-center">
-                            <div class="position-relative">
-                                <img src="image/Product-IMG-10_360x.webp" alt="Product 2" class="image_thumbnail mr-3">
-                                <span class="badge bg-dark text-white position-absolute rounded-pill"
-                                    style="margin: 0px; transform: translate(-70%, -30%);">1</span>
-                            </div>
-                            <span>Stand-up table remote control</span>
-                        </div>
-                    </a>
-                    <span class="price">427.000 đ</span>
-                </li>
+                <?php } ?>
             </ul>
 
             <!-- Discount Code -->
@@ -208,7 +135,7 @@
             <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>Tạm tính • <span>2 mặt hàng</span> </span>
-                    <span>867.000 đ</span>
+                    <span>$<?= $Total ?></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>Phí giao hàng</span>
@@ -216,7 +143,7 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>Tổng tiền</span>
-                    <strong>867.000 đ</strong>
+                    <strong>$<?= $Total ?></strong>
                 </li>
             </ul>
         </div>

@@ -12,14 +12,6 @@
 
         <!-- Phần dưới -->
         <div class="align-items-end ">
-            <!-- Options -->
-            <div id="cartOptions">
-                <button class="btn btn-outline-secondary w-100 mb-2" id="estimateShippingBtn">Estimate
-                    shipping-cost</button>
-                <button class="btn btn-outline-secondary w-100 mb-2" id="addNoteBtn">Add a note</button>
-                <button class="btn btn-outline-secondary w-100 mb-2" id="addCouponBtn">Add a coupon</button>
-            </div>
-
             <!-- Subtotal -->
             <div id="subtotalSection" class="mt-4 d-flex justify-content-between">
                 <span>Subtotal</span>
@@ -32,8 +24,8 @@
 
             <!-- Buttons -->
             <div id="buttonsSection" class="mt-4 d-flex justify-content-between">
-                <button class="btn btn-dark">VIEW CART</button>
-                <button class="btn btn-warning">CHECK OUT</button>
+                <a href="?c=cart&a=show" class="btn btn-dark">VIEW CART</a>
+                <a href="?c=payment" class="btn btn-warning">CHECK OUT</a>
             </div>
         </div>
     </div>

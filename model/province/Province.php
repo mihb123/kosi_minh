@@ -40,4 +40,10 @@ class Province
         $this->type = $type;
         return $this;
     }
+
+    function getDistricts()
+    {
+        $districtRepository = new DistrictRepo();
+        return $districtRepository->getByProvince($this->id);
+    }
 }

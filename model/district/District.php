@@ -53,4 +53,17 @@ class District
         $this->provinceId = $provinceId;
         return $this;
     }
+
+    function getProvince()
+    {
+        $provinceRepository = new ProvinceRepo;
+        $province = $provinceRepository->find($this->provinceId);
+        return $province;
+    }
+
+    function getWards()
+    {
+        $wardRepository = new WardRepo;
+        return $wardRepository->getByDistrict($this->id);
+    }
 }

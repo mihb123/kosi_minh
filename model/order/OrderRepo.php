@@ -19,12 +19,13 @@ class OrderRepo
                     $row["customer_id"], // Corrected property name
                     $row["created_date"], // Corrected property name
                     $row["recipient"],
-                    $row["phone_no"], // Corrected property name
+                    $row["phone"], // Corrected property name
                     $row["ward_id"], // Corrected property name
                     $row["shipping_address"], // Corrected property name
                     $row["status_id"], // Corrected property name
                     $row["shipping_cost"], // Corrected property name
-                    $row["delivery_date"] // Corrected property name
+                    $row["delivery_date"], // Corrected property name
+                    $row["email"]
                 );
                 $orders[] = $order;
             }
@@ -46,20 +47,40 @@ class OrderRepo
         return $order;
     }
 
+    function findOrderByCustomer($id)
+    {
+        global $conn;
+        $condition = "customer_id = $id";
+        $orders = $this->fetchAll($condition);
+        return $orders;
+    }
+
     function save($data)
     {
         global $conn;
         $customer_id = $data["customer_id"];
         $created_date = $data["created_date"];
         $recipient = $data["recipient"];
-        $phone_no = $data["phone_no"];
+        $phone = $data["phone"];
         $ward_id = $data["ward_id"];
         $shipping_address = $data["shipping_address"];
         $status_id = $data["status_id"];
         $shipping_cost = $data["shipping_cost"];
         $delivery_date = $data["delivery_date"];
+        $email = $data["email"];
+        if (empty($ward_id)) {
+            $ward_id = 0;
+        }
 
-        $sql = "INSERT INTO `order` (customer_id, created_date, recipient, phone_no, ward_id, shipping_address, status_id, shipping_cost, delivery_date) VALUES ($customer_id, '$created_date', '$recipient', '$phone_no', $ward_id, '$shipping_address', $status_id, $shipping_cost, '$delivery_date')";
+        if (empty($status_id)) {
+            $status_id = 1;
+        }
+
+        if (empty($delivery_date)) {
+            $delivery_date = 'null';
+        }
+
+        $sql = "INSERT INTO `order` (customer_id, created_date, recipient, phone, ward_id, shipping_address, status_id, shipping_cost, delivery_date, email) VALUES ($customer_id, '$created_date', '$recipient', '$phone', '$ward_id', '$shipping_address', '$status_id', '$shipping_cost', '$delivery_date', '$email')";
         if ($conn->query($sql) === TRUE) {
             return $conn->insert_id;
         }
@@ -74,23 +95,25 @@ class OrderRepo
         $customer_id = $order->getCustomerId();
         $created_date = $order->getCreatedDate();
         $recipient = $order->getRecipient();
-        $phone_no = $order->getPhoneNo();
+        $phone = $order->getPhoneNo();
         $ward_id = $order->getWardId();
         $shipping_address = $order->getShippingAddress();
         $status_id = $order->getStatusId();
         $shipping_cost = $order->getShippingCost();
         $delivery_date = $order->getReceivedDate();
+        $email = $order->getEmail();
 
         $sql = "UPDATE `order` SET 
             customer_id=$customer_id, 
             created_date='$created_date', 
             recipient='$recipient', 
-            phone_no='$phone_no', 
+            phone='$phone', 
             ward_id=$ward_id, 
             shipping_address='$shipping_address', 
             status_id=$status_id, 
             shipping_cost=$shipping_cost, 
-            delivery_date='$delivery_date' 
+            delivery_date='$delivery_date' ,
+            email='$email'
             WHERE id=$id";
 
         if ($conn->query($sql) === TRUE) {

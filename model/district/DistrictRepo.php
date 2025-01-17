@@ -14,7 +14,7 @@ class DistrictRepo
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $district = new District($row["id"], $row["name"], $row["type"], $row["provinceId"]);
+                $district = new District($row["id"], $row["name"], $row["type"], $row["province_id"]);
                 $districts[] = $district;
             }
         }
@@ -33,5 +33,13 @@ class DistrictRepo
         $districts = $this->fetchAll($condition);
         $district = current($districts);
         return $district;
+    }
+
+    function getByProvince($id)
+    {
+        global $conn;
+        $condition = "province_id = $id";
+        $districts = $this->fetchAll($condition);
+        return $districts;
     }
 }

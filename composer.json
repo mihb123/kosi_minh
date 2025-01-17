@@ -1,5 +1,7 @@
 {
     "require": {
-        "unsplash/unsplash": "^3.2"
+        "unsplash/unsplash": "^3.2",
+        "phpmailer/phpmailer": "^6.9",
+        "firebase/php-jwt": "^6.4"
     }
 }

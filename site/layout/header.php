@@ -34,6 +34,21 @@
 <body>
     <header>
         <div style="height: 60px; width: 100%;"></div>
+        <?php
+        $message = '';
+        $div_class = '';
+        if (!empty($_SESSION['success'])) {
+            $message = $_SESSION['success'];
+            unset($_SESSION['success']);
+            $div_class = 'success d-md-block';
+        } else if (!empty($_SESSION['error'])) {
+            $message = $_SESSION['error'];
+            unset($_SESSION['error']);
+            $div_class = 'danger d-md-block';
+        };
+        ?>
+        <div class="d-none alert alert-<?= $div_class ?>"><?= $message ?>
+        </div>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-md bg-body-tertiary fixed-nav">
             <div class="container-lg d-flex align-items-center">
@@ -62,34 +77,31 @@
                                 <i class="bi bi-box me-1"></i> Product
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                        <li class="nav-item">
+                            <a class="nav-link" href="?c=blog">
                                 <i class="bi bi-journal-text me-1"></i> Blog
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-lightning me-1"></i>
-                                        Action</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-star me-1"></i> Another
-                                        action</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-1"></i> Something
-                                        else here</a></li>
-                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="?c=contact">
                                 <i class="bi bi-envelope me-1"></i> Contact
                             </a>
                         </li>
                     </ul>
 
                     <div class="ms-auto d-flex header_icon">
-
                         <!-- sign in -->
+                        <?php if (!empty($_SESSION['name'])) { ?>
+                        <a class="i" type="button" href="?c=customer&a=show" ?>
+                            <i class="icon kosi-icon- kosi-icon-user fs-20"></i>
+                        </a>
+                        <?php } else { ?>
                         <a class="i" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSignIn"
                             aria-controls="offcanvasSignIn">
                             <i class="icon kosi-icon- kosi-icon-user fs-20"></i>
                         </a>
+                        <?php } ?>
+
 
                         <!-- Search Form -->
                         <a class="i" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
@@ -97,13 +109,14 @@
                             <i class="icon kosi-icon- kosi-icon-search fs-20"></i>
                         </a>
                         <?php
-                        if (empty($_SESSION['wishlist'])) {
-                            if (empty($_COOKIE['wishlist'])) {
-                                $countWishlist = 0;
+                        if (!empty($_SESSION['wishlist'])) {
+                            if (!empty($_COOKIE['wishlist'])) {
+                                $_SESSION['wishlist'] = $_COOKIE['wishlist'];
                             }
-                            $_SESSION['wishlist'] = $_COOKIE['wishlist'];
+                            $Wlist = unserialize($_SESSION['wishlist']);
                         }
-                        $Wlist = unserialize($_SESSION['wishlist']);
+                        $Wlist = [];
+
                         if (!$Wlist) {
                             $countWishlist = 0;
                         } else {
@@ -157,40 +170,37 @@
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-                <form>
+                <form action="?c=auth&a=login" method="post">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" autocomplete="username" placeholder="Email">
+                        <input type="email" name="email" class="form-control" id="email" autocomplete="username"
+                            placeholder="Email">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Password"
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password"
                             autocomplete="current-password">
-                        <a href="#" class="text-decoration-none mt-1 d-block" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasForgotPassword" aria-controls="offcanvasForgotPassword">Forgot
-
-                            password</a>
                     </div>
-
-                    <div>
-                        <button type="submit" class="btn btn-dark w-100 ">Sign In</button>
-                    </div>
-
-                    <div class="justify-content-between row mt-3">
-                        <div class="col-6" style="padding-left: 0px;">
-                            <button href="#" class="text-decoration-none btn btn-outline-dark w-100" type="button"
-                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasCreateAccount"
-                                aria-controls="offcanvasCreateAccount">Create
-                                account</button>
-                        </div>
-                        <div class="col-6">
-                            <button type="button" class="btn btn-outline-primary w-100 ">
-                                <i class="bi bi-google me-1"></i>Google
-
-                            </button>
-                        </div>
-                    </div>
+                    <a href="#" class="text-decoration-none mb-2 d-block" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasForgotPassword" aria-controls="offcanvasForgotPassword">Forgot
+                        password</a>
+                    <button type="submit" class="btn btn-dark w-100 ">Sign In</button>
                 </form>
+                <div class="justify-content-between row mt-3">
+                    <div class="col-6" style="padding-left: 0px;">
+                        <button href="#" class="text-decoration-none btn btn-outline-dark w-100" type="button"
+                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasCreateAccount"
+                            aria-controls="offcanvasCreateAccount">Create
+                            account</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-outline-primary w-100 ">
+                            <i class="bi bi-google me-1"></i>Google
+
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -202,35 +212,34 @@
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-                <form>
+                <form action="?c=customer&a=register" method="post">
                     <div class="mb-3">
                         <label for="fullName" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="fullName" placeholder="Full Name">
+                        <input type="text" class="form-control" id="fullName" name="fullname" placeholder="Full Name">
                     </div>
                     <div class="mb-3">
-                        <label for="emailPhone" class="form-label">Email or Phone</label>
-                        <input type="text" class="form-control" autocomplete="username" id="emailPhone"
-                            placeholder="Email or Phone">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" autocomplete="username" name="email"
+                            placeholder="Email">
                     </div>
                     <div class="mb-3">
                         <label for="newPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" autocomplete="new-password" id="newPassword"
-                            placeholder="Password">
+                        <input type="password" name="newPassword" class="form-control" autocomplete="new-password"
+                            id="newPassword" placeholder="Password">
                     </div>
                     <div class="mb-3">
-                        <label for="re-Password" class="form-label">Re-Password</label>
-                        <input type="password" class="form-control" autocomplete="re-password" id="rePassword"
+                        <label for="re-Password" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" autocomplete="new-password" id="rePassword"
                             placeholder="Confirm Password">
                     </div>
                     <button type="submit" class="btn btn-dark w-100">Create Account</button>
-                    <div class="text-center mt-3">
-                        <span>Or</span>
-                    </div>
                 </form>
+                <div class="text-center mt-3">
+                    <span>Or</span>
+                </div>
                 <div class="text-center mt-2">
                     <button type="button" class="btn btn-outline-primary w-100">
                         <i class="bi bi-google"></i> Sign up with Google
-
                     </button>
                 </div>
             </div>

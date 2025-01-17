@@ -8,8 +8,12 @@ class Customer
     protected $birthday;
     protected $verified;
     protected $password;
+    protected $shipping_name;
+    protected $shipping_phone;
+    protected $shipping_address;
+    protected $shipping_ward_id;
 
-    public function __construct($id, $name, $email, $phone, $birthday, $verified, $password)
+    public function __construct($id, $name, $email, $phone, $birthday, $verified, $password, $shipping_name, $shipping_phone, $shipping_address, $shipping_ward_id)
     {
         $this->id = $id;
         $this->name = $name;
@@ -18,6 +22,10 @@ class Customer
         $this->birthday = $birthday;
         $this->verified = $verified;
         $this->password = $password;
+        $this->shipping_name = $shipping_name;
+        $this->shipping_phone = $shipping_phone;
+        $this->shipping_address = $shipping_address;
+        $this->shipping_ward_id = $shipping_ward_id;
     }
 
     // Getters
@@ -51,11 +59,31 @@ class Customer
         return $this->verified;
     }
 
-    // Password should not be directly accessible for security reasons
-    // Consider using a hashing mechanism for password storage and retrieval
-    // public function getPassword() { 
-    //     return $this->password; 
-    // }
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    // Getters for new properties
+    public function getShippingName()
+    {
+        return $this->shipping_name;
+    }
+
+    public function getShippingPhone()
+    {
+        return $this->shipping_phone;
+    }
+
+    public function getShippingAddress()
+    {
+        return $this->shipping_address;
+    }
+
+    public function getShippingWardId()
+    {
+        return $this->shipping_ward_id;
+    }
 
     // Setters
     public function setName($name)
@@ -88,10 +116,37 @@ class Customer
         return $this;
     }
 
-    // Password should be set using a secure hashing method
-    // public function setPassword($password) { 
-    //     // Hash the password before storing 
-    //     $this->password = password_hash($password, PASSWORD_DEFAULT); 
-    //     return $this; 
-    // }
+    // Setters for new properties
+    public function setShippingName($shipping_name)
+    {
+        $this->shipping_name = $shipping_name;
+        return $this;
+    }
+
+    public function setShippingPhone($shipping_phone)
+    {
+        $this->shipping_phone = $shipping_phone;
+        return $this;
+    }
+
+    public function setShippingAddress($shipping_address)
+    {
+        $this->shipping_address = $shipping_address;
+        return $this;
+    }
+
+    public function setShippingWardId($shipping_ward_id)
+    {
+        $this->shipping_ward_id = $shipping_ward_id;
+        return $this;
+    }
+
+    function getWard()
+    {
+        if (!$this->shipping_ward_id) return null;
+        $ward_id = $this->getShippingWardId();
+        $wardRepo = new WardRepo;
+        $ward = $wardRepo->find($ward_id);
+        return $ward;
+    }
 }

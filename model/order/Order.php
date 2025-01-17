@@ -5,35 +5,38 @@ class Order
     protected $customerId;
     protected $createdDate;
     protected $recipient;
-    protected $phoneNo;
+    protected $phone;
     protected $wardId;
     protected $shippingAddress;
     protected $statusId;
     protected $shippingCost;
     protected $receivedDate;
+    protected $email;
 
     public function __construct(
         $id,
         $customerId,
         $createdDate,
         $recipient,
-        $phoneNo,
+        $phone,
         $wardId,
         $shippingAddress,
         $statusId,
         $shippingCost,
-        $receivedDate
+        $receivedDate,
+        $email
     ) {
         $this->id = $id;
         $this->customerId = $customerId;
         $this->createdDate = $createdDate;
         $this->recipient = $recipient;
-        $this->phoneNo = $phoneNo;
+        $this->phone = $phone;
         $this->wardId = $wardId;
         $this->shippingAddress = $shippingAddress;
         $this->statusId = $statusId;
         $this->shippingCost = $shippingCost;
         $this->receivedDate = $receivedDate;
+        $this->email = $email;
     }
 
     // Getters
@@ -57,9 +60,9 @@ class Order
         return $this->recipient;
     }
 
-    public function getPhoneNo()
+    public function getPhone()
     {
-        return $this->phoneNo;
+        return $this->phone;
     }
 
     public function getWardId()
@@ -87,6 +90,12 @@ class Order
         return $this->receivedDate;
     }
 
+    // get email
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
     // Setters
     public function setCustomerId($customerId)
     {
@@ -106,9 +115,9 @@ class Order
         return $this;
     }
 
-    public function setPhoneNo($phoneNo)
+    public function setPhone($phone)
     {
-        $this->phoneNo = $phoneNo;
+        $this->phone = $phone;
         return $this;
     }
 
@@ -139,6 +148,13 @@ class Order
     public function setReceivedDate($receivedDate)
     {
         $this->receivedDate = $receivedDate;
+        return $this;
+    }
+
+    // set email
+    public function setEmail($email)
+    {
+        $this->email = $email;
         return $this;
     }
 }

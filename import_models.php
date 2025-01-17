@@ -3,6 +3,7 @@ define('ABSPATH', dirname(__FILE__) . '/');
 
 // Import all model files
 require_once ABSPATH . 'model/blog/Blog.php';
+require_once ABSPATH . 'model/cart/Cart.php';
 require_once ABSPATH . 'model/category/Category.php';
 require_once ABSPATH . 'model/color/Color.php';
 require_once ABSPATH . 'model/customer/Customer.php';
@@ -21,9 +22,11 @@ require_once ABSPATH . 'model/sku/Sku.php';
 require_once ABSPATH . 'model/view_sku/viewSku.php';
 require_once ABSPATH . 'model/ward/Ward.php';
 require_once ABSPATH . 'model/wishlist/Wishlist.php';
-require_once ABSPATH . 'model/cart/Cart.php';
+require_once ABSPATH . 'model/service/EmailService.php';
 
 // Import all repository files
+require_once ABSPATH . 'model/blog/BlogRepo.php';
+require_once ABSPATH . 'model/cart/CartRepo.php';
 require_once ABSPATH . 'model/category/CategoryRepo.php';
 require_once ABSPATH . 'model/color/ColorRepo.php';
 require_once ABSPATH . 'model/customer/CustomerRepo.php';

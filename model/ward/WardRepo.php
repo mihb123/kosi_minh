@@ -39,4 +39,12 @@ class WardRepo
         $ward = current($wards);
         return $ward;
     }
+
+    function getByDistrict($id)
+    {
+        global $conn;
+        $condition = "district_id = $id";
+        $wards = $this->fetchAll($condition);
+        return $wards;
+    }
 }

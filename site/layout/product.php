@@ -13,11 +13,11 @@
             <img src="image/<?= $product->getFeaturedImage() ?>" alt="">
         </a>
         <?php if ($discount) { ?>
-            <div class="d-flex position-absolute align-items-center discount">
-                <span>-<?= $discount ?>%</span>
-            </div>
+        <div class="d-flex position-absolute align-items-center discount">
+            <span>-<?= $discount ?>%</span>
+        </div>
         <?php } else { ?>
-            <div d-none></div>
+        <div d-none></div>
         <?php } ?>
 
         <!-- icons -->
@@ -28,10 +28,12 @@
             </a>
 
             <?php if ($Wlist) { ?>
-                <a href="javascript:void(0)"
-                    onclick="<?= !in_array($product_id, $Wlist) ? 'addWishlist' : 'removeWishlist' ?>(this, <?= $product->getId() ?>)"
-                    class="<?= !in_array($product_id, $Wlist) ? 'addWishlist' : 'removeWishlist' ?>" <?php } else { ?>
-                    class="addWishlist" <?php } ?>>
+            <a href="javascript:void(0)"
+                onclick="<?= !in_array($product_id, $Wlist) ? 'addWishlist' : 'removeWishlist' ?>(this, <?= $product->getId() ?>)"
+                class="<?= !in_array($product_id, $Wlist) ? 'addWishlist' : 'removeWishlist' ?>"> <?php } else { ?>
+                <a href="javascript:void(0)" onclick="addWishlist(this, <?= $product->getId() ?>)" class="addWishlist">
+                    <?php } ?>
+
                     <i class="bi bi-heart" title="Add to wishlist" data-bs-toggle="tooltip" data-bs-placement="top"
                         data-bs-delay='{"show": 100, "hide": 100}'></i>
                 </a>
@@ -53,23 +55,23 @@
             $colorName = $color->getName();
             $colorCode = $color->getCode();
         ?>
-            <span style="background-color: <?= $colorCode ?>;" title="<?= $colorName ?>" data-bs-toggle="tooltip"
-                data-bs-placement="top" data-bs-delay='{"show": 100, "hide": 100}'
-                onclick="changeImage(this, '<?= $colorName ?>')">
-            </span>
+        <span style="background-color: <?= $colorCode ?>;" title="<?= $colorName ?>" data-bs-toggle="tooltip"
+            data-bs-placement="top" data-bs-delay='{"show": 100, "hide": 100}'
+            onclick="changeImage(this, '<?= $colorName ?>')">
+        </span>
         <?php } ?>
     </div>
 
     <!-- price -->
     <div class="price">
         <?php if ($discount) { ?>
-            <span
-                class="d-inline original-price text-decoration-line-through">$<?= number_format($product->getPrice()) ?></span>
-            <span class="fw-medium sale_price"
-                sale_price=<?= $product->getPrice() * (1 - $discount / 100) ?>>$<?= $product->getPrice() * (1 - $discount / 100) ?></span>
+        <span
+            class="d-inline original-price text-decoration-line-through">$<?= number_format($product->getPrice()) ?></span>
+        <span class="fw-medium sale_price"
+            sale_price=<?= $product->getPrice() * (1 - $discount / 100) ?>>$<?= $product->getPrice() * (1 - $discount / 100) ?></span>
 
         <?php } else { ?>
-            <span class="fw-medium sale_price" sale_price=<?= $product->getPrice() ?>> $<?= $product->getPrice() ?></span>
+        <span class="fw-medium sale_price" sale_price=<?= $product->getPrice() ?>> $<?= $product->getPrice() ?></span>
         <?php } ?>
     </div>
 
