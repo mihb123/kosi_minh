@@ -115,10 +115,11 @@
                             }
                             $Wlist = unserialize($_SESSION['wishlist']);
                         }
-                        $Wlist = [];
 
-                        if (!$Wlist) {
+
+                        if (empty($Wlist)) {
                             $countWishlist = 0;
+                            $Wlist = [];
                         } else {
                             $countWishlist = count($Wlist);
                         }
