@@ -38,12 +38,14 @@
                         data-bs-delay='{"show": 100, "hide": 100}'></i>
                 </a>
 
-                <a href="">
+                <!-- Trigger Quick View -->
+                <a data-bs-toggle="modal" data-bs-target="#quickview-<?= $product->getId() ?>">
                     <i class="bi bi-eye" title="Quick view" data-bs-toggle="tooltip" data-bs-placement="top"
                         data-bs-delay='{"show": 100, "hide": 100}'></i>
                 </a>
         </div>
     </div>
+
 
     <!-- tên sp -->
     <a href="?c=product&a=detail&id=<?= $product->getId() ?>" class="productName line-title">
@@ -74,5 +76,6 @@
         <span class="fw-medium sale_price" sale_price=<?= $product->getPrice() ?>> $<?= $product->getPrice() ?></span>
         <?php } ?>
     </div>
-
 </div>
+<!-- Modal -->
+<?php require 'layout/quickview.php' ?>

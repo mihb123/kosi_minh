@@ -3,7 +3,7 @@
 <?php require 'layout/banner.php' ?>
 <div class="account-info-container row ">
     <?php require 'layout/sidebarCustomer.php' ?>
-    <div class="account-section col-md-9 text-start">
+    <div class="account-section col-sm-9 col-lg-6 text-start">
         <h2>Đơn hàng của bạn</h2>
         <?php foreach ($orders as $order) { ?>
         <table class="table cartDetail">

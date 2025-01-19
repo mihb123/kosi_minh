@@ -12,21 +12,21 @@
         <?php foreach ($categories as $category) {
             $productByCategory = $productRepo->getByCategory($category->getId());
         ?>
-        <div class="col">
-            <div class="card text-dark" style=" border: none;">
-                <div class="image__inner">
-                    <a href="?c=product&caregory_id=<? $category->getId() ?>">
-                        <img src="image/<?= $productByCategory[0]->getFeaturedImage() ?>" class="card-img " alt="abc">
-                    </a>
-                </div>
+            <div class="col">
+                <div class="card text-dark" style=" border: none;">
+                    <div class="image__inner">
+                        <a href="?c=product&caregory_id=<? $category->getId() ?>">
+                            <img src="image/<?= $productByCategory[0]->getFeaturedImage() ?>" class="card-img " alt="abc">
+                        </a>
+                    </div>
 
-                <div class="card-img-overlay">
-                    <h3 class="card-title" style="font-weight: 600; font-size:34px;"><?= $category->getName() ?></h3>
-                    <a href="?c=product&caregory_id=<? $category->getId() ?>"
-                        class="text-decoration-underline fw-medium">View all</a>
+                    <div class="card-img-overlay">
+                        <h3 class="card-title" style="font-weight: 600; font-size:34px;"><?= $category->getName() ?></h3>
+                        <a href="?c=product&caregory_id=<? $category->getId() ?>"
+                            class="text-decoration-underline fw-medium">View all</a>
+                    </div>
                 </div>
             </div>
-        </div>
         <?php } ?>
     </div>
 </section>
@@ -42,7 +42,7 @@
     <div class="row gy-4 ">
         <?php foreach ($products as $product) {
         ?>
-        <?php require 'layout/product.php' ?>
+            <?php require 'layout/product.php' ?>
         <?php }  ?>
 
         <div class="text-center mb-5">
@@ -77,25 +77,25 @@
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php foreach ($blogs as $blog) { ?>
-            <!-- Blog Card -->
-            <div class="col">
-                <div class="card border-0 ">
-                    <a href="?c=blog&a=detail&id=<?= $blog->getId() ?>" class="image__inner">
-                        <img src="image/blog-<?= $blog->getId() ?>_540x.webp" class="card-img-top "
-                            alt="Blog Image <?= $blog->getId() ?>">
-                    </a>
-
-                    <div class="card-body ps-0">
-                        <p class="text-muted mb-2">
-                            <i class="bi bi-person"></i> <?= $blog->getAuthor() ?>-
-                            <i class="bi bi-calendar"></i> <?= date('d-m-y', strtotime($blog->getCreatedDate())) ?>
-                        </p>
-                        <a href="">
-                            <h6 class="card-title"> <?= $blog->getTitle() ?></h6>
+                <!-- Blog Card -->
+                <div class="col">
+                    <div class="card border-0 ">
+                        <a href="?c=blog&a=detail&id=<?= $blog->getId() ?>" class="image__inner">
+                            <img src="image/blog-<?= $blog->getId() ?>_540x.webp" class="card-img-top "
+                                alt="Blog Image <?= $blog->getId() ?>">
                         </a>
+
+                        <div class="card-body ps-0">
+                            <p class="text-muted mb-2">
+                                <i class="bi bi-person"></i> <?= $blog->getAuthor() ?>-
+                                <i class="bi bi-calendar"></i> <?= date('d-m-y', strtotime($blog->getCreatedDate())) ?>
+                            </p>
+                            <a href="">
+                                <h6 class="card-title"> <?= $blog->getTitle() ?></h6>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
             <?php } ?>
 
         </div>

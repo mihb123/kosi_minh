@@ -112,4 +112,35 @@ class CustomerController
         $orders = $orderRepo->findOrderByCustomer($customer_id);
         require 'view/viewOrders.php';
     }
+
+    function edit()
+    {
+        $email = $_SESSION['email'];
+        $customerRepo = new CustomerRepo;
+        $customer = $customerRepo->findEmail($email);
+        require 'view/updateInfo.php';
+    }
+
+    function updateInfo()
+    {
+        $email = $_SESSION['email'];
+        $customerRepo = new CustomerRepo;
+        $customer = $customerRepo->findEmail($email);
+
+        $fullname = $_POST['fullname'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $birthday = $_POST['birthday'];
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+
+        $customer->setName($fullname);
+        $customer->setPhone($phone);
+        $customer->setEmail($email);
+        $customer->setBirthday($birthday);
+        $customer->setPassword($password);
+        $customerRepo->update($customer);
+        $_SESSION['email'] = $email;
+        $_SESSION['success'] = 'Đã cập nhật thông tin thành công';
+        header('location: ?c=customer&a=show');
+    }
 }

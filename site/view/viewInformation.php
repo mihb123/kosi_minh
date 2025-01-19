@@ -1,9 +1,9 @@
 <?php require 'layout/header.php' ?>
 <!-- Banner Section -->
 <?php require 'layout/banner.php' ?>
-<div class="account-info-container row ">
+<div class=" row ">
     <?php require 'layout/sidebarCustomer.php' ?>
-    <div class=" account-section col-md-9 text-start">
+    <div class="account-section col-sm-9 col-lg-6 text-start">
         <h2>Thông tin tài khoản</h2>
         <ul>
             <li>
@@ -27,7 +27,7 @@
                 <span>***************</span>
             </li>
             <li class="mt-3">
-                <a class="btn btn-outline-dark mt-1">CẬP NHẬT</a>
+                <a href="?c=customer&a=edit" class="btn btn-outline-dark mt-1">CẬP NHẬT</a>
                 <a class="logout-btn btn btn-dark mt-1">ĐĂNG XUẤT</a>
             </li>
         </ul>

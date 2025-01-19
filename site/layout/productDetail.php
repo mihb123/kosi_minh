@@ -56,8 +56,11 @@
             <!-- Quantity and Add to Cart -->
             <div class="d-flex align-items-center mb-4">
                 <input type="number" class="form-control w-auto me-2" value="1" min="1" max="10" style="width: 80px;">
-                <button class="btn btn-dark me-2">Add To Cart</button>
-                <button class="btn btn-warning">Buy It Now</button>
+                <a class="btn btn-dark me-2 addToCart" product_id=<?= $product->getId() ?>>Add To
+                    Cart</a>
+                <a href="?c=payment" class="btn btn-warning addToCart" product_id=<?= $product->getId() ?>>Buy It
+                    Now</a>
+
             </div>
 
             <!-- Wishlist and Questions -->

@@ -1,4 +1,4 @@
-<div class="sidebar col-md-3 me-4 justify-content-end d-flex">
+<div class="sidebar col-sm-3 col-lg-4 me-2 justify-content-end d-flex">
     <ul class="text-start d-block-inline">
         <?php global $a; ?>
         <li><a href="?c=customer&a=show" class="<?= $a == 'show' ? 'active' : '' ?>">Thông tin tài khoản</a></li>

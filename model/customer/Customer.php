@@ -110,6 +110,12 @@ class Customer
         return $this;
     }
 
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
+    }
+
     public function setVerified($verified)
     {
         $this->verified = $verified;
